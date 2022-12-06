@@ -1,0 +1,55 @@
+<div class="RTBholder">
+  <div class="tools">
+    <div class="toolBarTitle">Options</div>
+    <div class="tool move">
+      <button mat-fab color="" (click)="clickOn('move')">
+        <mat-icon>drag_indicator</mat-icon>
+      </button>
+    </div>
+    <div class="tool resize">
+      <button mat-fab color="" (click)="clickOn('resize')">
+        <mat-icon>aspect_ratio</mat-icon>
+      </button>
+    </div>
+    <div class="tool copy">
+      <button mat-fab color="" (click)="clickOn('copy')">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </div>
+    <div class="tool clear">
+      <button mat-fab color="" (click)="clickOn('clear')">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+    <div class="tool eraser">
+      <button mat-fab color="" (click)="clickOn('eraser')">
+        <mat-icon>auto_fix_off</mat-icon>
+      </button>
+    </div>
+    <div class="tool brush">
+      <button mat-fab color="">
+        <mat-icon>brush</mat-icon>
+      </button>
+    </div>
+    <div class="brushWidth">
+      <mat-slider discrete>
+        <input
+          matSliderThumb
+          color=""
+          #tempBrush
+          (change)="changeBrushWidth(tempBrush.value)"
+        />
+      </mat-slider>
+    </div>
+    <div class="colorsTitle">Color Picker</div>
+    <div class="colors">
+      <input
+        type="color"
+        value="#7fffd4"
+        id="colorPicker"
+        #tempCol
+        (change)="changeColorValue(tempCol.value)"
+      />
+    </div>
+  </div>
+</div>

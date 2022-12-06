@@ -1,0 +1,51 @@
+.optionsLeftHolder {
+  width: 100%;
+  height: 100%;
+  background-color: #001219;
+  padding: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+}
+.options {
+  background-color: #005f73;
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+.option {
+  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button {
+  color: white;
+  background-color: #001219;
+  box-shadow: 0 4px #999;
+}
+button:hover {
+  background-color: #ae2012;
+}
+button:hover mat-icon {
+  color: black;
+}
+button:active {
+  background-color: #9b2226;
+  box-shadow: 0 1px #666;
+  -webkit-transform: translateY(2px);
+  -moz-transform: translateY(2px);
+  -ms-transform: translateY(2px);
+  -o-transform: translateY(2px);
+  transform: translateY(2px);
+}

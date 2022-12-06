@@ -1,0 +1,123 @@
+.RTBholder {
+  width: 100%;
+  height: 100%;
+  background-color: #001219;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.tools {
+  background-color: #005f73;
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 5px;
+}
+.toolBarTitle {
+  grid-area: 1 / 1 / 2 / 3;
+}
+.brushWidth {
+  grid-area: 5 / 1 / 6 / 3;
+}
+.colorsTitle {
+  grid-area: 6 / 1 / 7 / 3;
+}
+.colors {
+  grid-area: 7 / 1 / 9 / 3;
+}
+.brushWidth,
+.tool {
+  padding: 5px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.brushWidth {
+  padding: 0px 5px;
+  margin-top: 5px;
+  margin-inline: auto;
+  background-color: #7fffd4;
+  border: 5px solid black;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+}
+.toolBarTitle,
+.colorsTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-family: "Zen Dots", cursive;
+}
+button {
+  background-color: #001219;
+  cursor: pointer;
+  box-shadow: 0 4px #999;
+}
+button:hover {
+  background-color: #ae2012;
+}
+button:hover mat-icon {
+  color: black;
+}
+button:active {
+  background-color: #9b2226;
+  box-shadow: 0 1px #666;
+  -webkit-transform: translateY(2px);
+  -moz-transform: translateY(2px);
+  -ms-transform: translateY(2px);
+  -o-transform: translateY(2px);
+  transform: translateY(2px);
+}
+mat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32.5px;
+  color: white;
+}
+.colors {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+#colorPicker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100px;
+  height: 100px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+#colorPicker::-webkit-color-swatch {
+  border: 5px solid black;
+  -webkit-border-radius: 25%;
+  -moz-border-radius: 25%;
+  -ms-border-radius: 25%;
+  -o-border-radius: 25%;
+  border-radius: 25%;
+}
+#colorPicker::-moz-color-swatch {
+  border: 5px solid black;
+  -webkit-border-radius: 25%;
+  -moz-border-radius: 25%;
+  -ms-border-radius: 25%;
+  -o-border-radius: 25%;
+  border-radius: 25%;
+}

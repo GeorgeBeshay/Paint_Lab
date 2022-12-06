@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Exo+2:wght@400;900&display=swap");
+.pageBody {
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  background-color: #021d28;
+}
+.container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+.optionsLeft {
+  grid-area: 1 / 1 / 2 / 5;
+}
+.header {
+  grid-area: 1 / 5 / 2 / 9;
+}
+.header h1 {
+  font-family: "Dancing Script", cursive;
+  text-align: center;
+  font-size: 28px;
+  width: 100%;
+  margin: 5px auto;
+  padding: 15px 10px;
+  background-color: #94d2bd;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+.LeftTB {
+  grid-area: 2 / 1 / 12 / 3;
+}
+.paintingBoard {
+  grid-area: 2 / 3 / 12 / 11;
+}
+.RightTB {
+  grid-area: 2 / 11 / 12 / 13;
+}
+.footer {
+  grid-area: 12 / 1 / 13 / 13;
+}
+.optionsRight {
+  grid-area: 1 / 9 / 2 / 13;
+}
