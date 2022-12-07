@@ -5,6 +5,7 @@ import Konva from 'konva';
 import { Stage } from 'konva/lib/Stage';
 import { Shape } from 'konva/lib/Shape';
 import { SharedService } from 'src/app/services/shared.service';
+import { Layer } from 'konva/lib/Layer';
 
 @Injectable({
   providedIn: 'root',
@@ -171,6 +172,32 @@ export class ArtistService {
         object.setAttr("fill",color);
       }
     })
+  }
+  resize(myStage: Stage, board: Layer){
+    let transformer = new Konva.Transformer();
+    board.add(transformer);
+    let object!: Stage | Shape;
+    console.log("in resize");
+    myStage.listening(true);
+    myStage.on('click touchdown',function(e){
+    object = e.target;
+    if (object === myStage) {
+        transformer.nodes([]);
+        return;
+    }
+    myStage.listening(true);
+    transformer.nodes([object]);
+    object.on('transformend', function () {
+    console.log('transform end');
+    object.setAttrs({
+    width: object.width() * object.scaleX(),
+    height: object.height() * object.scaleY(),
+    scaleX: 1,
+    scaleY: 1
+    });
+    console.log(object.getAttrs());
+      });    
+  })
   }
 
 }

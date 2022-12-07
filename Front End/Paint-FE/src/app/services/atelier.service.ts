@@ -81,6 +81,10 @@ export class AtelierService {
         this.myArtist.color(myStage);
         break;
       }
+      case 'resize': {
+        this.myArtist.resize(myStage, board);
+        break;
+      }
       default: {
         break;
       }
