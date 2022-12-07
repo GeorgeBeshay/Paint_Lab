@@ -24,7 +24,6 @@ export class ArtistService {
       cornerRadius: 12,
       width: 200,
       height: 100,
-      draggable: true,
     });
     // shapeToBeReturned.on('click', () => {
     //   this.transformer.nodes([shapeToBeReturned]);
@@ -41,7 +40,6 @@ export class ArtistService {
       cornerRadius: 12,
       width: 100,
       height: 100,
-      draggable: true,
     });
   }
 
@@ -50,7 +48,6 @@ export class ArtistService {
       x: 100,
       y: 100,
       stroke: 'black',
-      draggable: true,
       radius: 100,
     });
     shapeToBeReturned.on('click', () => {
@@ -66,7 +63,6 @@ export class ArtistService {
       fill: 'red',
       outerRadius: 50,
       innerRadius: 30,
-      draggable: true,
     });
   }
 
@@ -77,7 +73,6 @@ export class ArtistService {
       stroke: 'blaack',
       outerRadius: 50,
       innerRadius: 30,
-      draggable: true,
       numPoints: 9,
     });
   }
@@ -88,7 +83,6 @@ export class ArtistService {
       y: 100,
       stroke: 'black',
       strokeWidth: 2,
-      draggable: true,
       points: [0, 0, 200, 0],
     });
     return shapeToBeReturned;
@@ -99,7 +93,6 @@ export class ArtistService {
       x: 90,
       y: 200,
       stroke: 'black',
-      draggable: true,
       points: [0, 0, 200, 0, 100, -150],
       closed: true,
       lineJoin: 'round',
@@ -114,7 +107,6 @@ export class ArtistService {
       radiusY: 50,
       stroke: 'black',
       strokeWidth: 2,
-      draggable: true,
     });
   }
 
@@ -126,7 +118,6 @@ export class ArtistService {
       y: 100,
       stroke: 'black',
       strokeWidth: 2,
-      draggable: true
     });
   }
 
@@ -138,8 +129,7 @@ export class ArtistService {
       y: 100,
       stroke: 'black',
       strokeWidth: 2,
-      draggable: true
-    }); 
+    });
   }
 
   move(myStage: Stage){
