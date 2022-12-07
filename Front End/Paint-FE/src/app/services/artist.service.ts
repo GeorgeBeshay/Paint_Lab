@@ -4,16 +4,19 @@ import { Injectable } from '@angular/core';
 import Konva from 'konva';
 import { Stage } from 'konva/lib/Stage';
 import { Shape } from 'konva/lib/Shape';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArtistService {
-  constructor() {}
+  //private sharedService: SharedService = new SharedService();
+  constructor(private sharedService: SharedService) {}
   // transformer: any;
   // getTransformer(transformer: any){
   //   this.transformer = transformer;
   // }
+
 
   drawRect() {
     let shapeToBeReturned = new Konva.Rect({
@@ -152,4 +155,22 @@ export class ArtistService {
       }
     })
   }
+
+  color(myStage: Stage){
+    let i=0;
+    myStage.listening(true);
+    let color = this.sharedService.getColor();
+    myStage.on('click' , function(e){
+      i++;
+      let object = e.target;
+      if(i>1){
+        myStage.listening(false);
+      }
+      else {
+        myStage.listening(true);
+        object.setAttr("fill",color);
+      }
+    })
+  }
+
 }

@@ -19,7 +19,8 @@ export class PaintingBoardComponent implements OnInit {
   clickEventSubscription: Subscription;
   private myStage!: Stage;
   private board!: Layer;
-  private myAtelier: AtelierService = new AtelierService();
+  private myArtist: ArtistService = new ArtistService(this.sharedService);
+  private myAtelier: AtelierService = new AtelierService(this.myArtist);
   private transformer: any;
   // ---------- Separator ----------
   constructor(private sharedService: SharedService) {

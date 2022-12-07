@@ -11,9 +11,9 @@ export class AtelierService {
   // ------------ Separator ------------
   private shapesHolder: any[] = [];
   private redoShapesHolder: any[] = [];
-  private myArtist: ArtistService = new ArtistService();
+  //private myArtist: ArtistService = new ArtistService();
   // ------------ Separator ------------
-  constructor() {}
+  constructor(private myArtist: ArtistService) {}
   // ------------ Separator ------------
   requestAnUpdate(myStage: Stage, board: Layer, request: string | undefined, transformer: any) {
     // this.myArtist.getTransformer(transformer);
@@ -75,6 +75,10 @@ export class AtelierService {
       }
       case 'move': {
         this.myArtist.move(myStage);
+        break;
+      }
+      case 'colorFill': {
+        this.myArtist.color(myStage);
         break;
       }
       default: {
