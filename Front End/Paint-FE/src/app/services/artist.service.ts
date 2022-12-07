@@ -19,12 +19,12 @@ export class ArtistService {
     let shapeToBeReturned = new Konva.Rect({
       x: 100,
       y: 100,
-      stroke: 'blue',
-      strokeWidth: 12,
+      stroke: 'black',
+      strokeWidth: 2,
       cornerRadius: 12,
-      fill: 'orange',
       width: 200,
       height: 100,
+      draggable: true,
     });
     // shapeToBeReturned.on('click', () => {
     //   this.transformer.nodes([shapeToBeReturned]);
@@ -36,12 +36,12 @@ export class ArtistService {
     return new Konva.Rect({
       x: 100,
       y: 100,
-      stroke: 'blue',
-      strokeWidth: 12,
+      stroke: 'black',
+      strokeWidth: 2,
       cornerRadius: 12,
-      fill: 'orange',
       width: 100,
       height: 100,
+      draggable: true,
     });
   }
 
@@ -50,6 +50,7 @@ export class ArtistService {
       x: 100,
       y: 100,
       stroke: 'black',
+      draggable: true,
       radius: 100,
     });
     shapeToBeReturned.on('click', () => {
@@ -65,6 +66,7 @@ export class ArtistService {
       fill: 'red',
       outerRadius: 50,
       innerRadius: 30,
+      draggable: true,
     });
   }
 
@@ -72,10 +74,10 @@ export class ArtistService {
     return new Konva.Star({
       x: 100,
       y: 100,
-      fill: 'pink',
-      stroke: 'orange',
+      stroke: 'blaack',
       outerRadius: 50,
       innerRadius: 30,
+      draggable: true,
       numPoints: 9,
     });
   }
@@ -84,8 +86,9 @@ export class ArtistService {
     let shapeToBeReturned = new Konva.Line({
       x: 100,
       y: 100,
-      stroke: 'orange',
+      stroke: 'black',
       strokeWidth: 2,
+      draggable: true,
       points: [0, 0, 200, 0],
     });
     return shapeToBeReturned;
@@ -93,9 +96,10 @@ export class ArtistService {
 
   drawTriangle() {
     return new Konva.Line({
-      x: 100,
-      y: 100,
-      stroke: 'orange',
+      x: 90,
+      y: 200,
+      stroke: 'black',
+      draggable: true,
       points: [0, 0, 200, 0, 100, -150],
       closed: true,
       lineJoin: 'round',
@@ -104,14 +108,38 @@ export class ArtistService {
 
   drawEllipse(){
     return new Konva.Ellipse({
-      x: 50,
-      y: 50,
+      x: 100,
+      y: 100,
       radiusX: 100,
       radiusY: 50,
-      fill: 'pink',
       stroke: 'black',
-      strokeWidth: 4,
+      strokeWidth: 2,
+      draggable: true,
     });
+  }
+
+  drawHexagon() {
+    return new Konva.RegularPolygon({
+      sides: 6,
+      radius: 66,
+      x: 100,
+      y: 100,
+      stroke: 'black',
+      strokeWidth: 2,
+      draggable: true
+    });
+  }
+
+  drawPentagon() {
+    return new Konva.RegularPolygon({
+      sides: 5,
+      radius: 66,
+      x: 100,
+      y: 100,
+      stroke: 'black',
+      strokeWidth: 2,
+      draggable: true
+    }); 
   }
 
   move(myStage: Stage){

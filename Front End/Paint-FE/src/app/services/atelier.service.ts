@@ -40,9 +40,11 @@ export class AtelierService {
         break;
       }
       case 'pentagon': {
+        tempShape = this.myArtist.drawPentagon();
         break;
       }
       case 'hexagon': {
+        tempShape = this.myArtist.drawHexagon();
         break;
       }
       case 'ellipse':{
