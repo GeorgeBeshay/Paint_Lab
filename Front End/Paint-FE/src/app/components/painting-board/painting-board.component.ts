@@ -35,11 +35,11 @@ export class PaintingBoardComponent implements OnInit {
   }
   // ---------- Separator ----------
   ngOnInit(): void {
-    var container = document.querySelector('#holder');
-    if (container != null) {
+    var stageHolder = document.querySelector('#holder');
+    if (stageHolder != null) {
       this.myStage = new Konva.Stage({
-        width: container?.clientWidth - 20,
-        height: container?.clientHeight - 20,
+        width: stageHolder?.clientWidth - 10,
+        height: stageHolder?.clientHeight - 20,
         container: 'konva-holder',
       });
     }
