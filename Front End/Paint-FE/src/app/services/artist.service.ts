@@ -106,4 +106,17 @@ export class ArtistService {
       lineJoin: 'round',
     });
   }
+
+  drawEllipse(){
+    return new Konva.Ellipse({
+      x: 50,
+      y: 50,
+      radiusX: 100,
+      radiusY: 50,
+      fill: 'pink',
+      stroke: 'black',
+      strokeWidth: 4,
+      draggable: true,
+    });
+  }
 }

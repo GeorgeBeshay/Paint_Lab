@@ -44,6 +44,10 @@ export class AtelierService {
       case 'hexagon': {
         break;
       }
+      case 'ellipse':{
+        tempShape = this.myArtist.drawEllipse();
+        break;
+      }
       case 'undo': {
         if (this.shapesHolder.length > 0) {
           this.redoShapesHolder.push(this.shapesHolder.pop());
