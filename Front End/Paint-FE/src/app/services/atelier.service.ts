@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ArtistService } from './artist.service';
 import Konva from 'konva';
 import { Layer } from 'konva/lib/Layer';
+import { Stage } from 'konva/lib/Stage';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class AtelierService {
   // ------------ Separator ------------
   constructor() {}
   // ------------ Separator ------------
-  requestAnUpdate(board: Layer, request: string | undefined, transformer: any) {
+  requestAnUpdate(myStage: Stage, board: Layer, request: string | undefined, transformer: any) {
     // this.myArtist.getTransformer(transformer);
     let tempShape: any = null;
     switch (request) {
@@ -68,6 +69,10 @@ export class AtelierService {
         board.removeChildren();
         this.shapesHolder = [];
         this.redoShapesHolder = [];
+        break;
+      }
+      case 'move': {
+        this.myArtist.move(myStage);
         break;
       }
       default: {

@@ -27,6 +27,7 @@ export class PaintingBoardComponent implements OnInit {
       .getClickEvent()
       .subscribe(() => {
         this.myAtelier.requestAnUpdate(
+          this.myStage,
           this.board,
           this.sharedService.content.pop(),
           this.transformer

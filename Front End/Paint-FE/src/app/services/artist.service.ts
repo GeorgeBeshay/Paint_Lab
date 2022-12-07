@@ -2,6 +2,8 @@
 
 import { Injectable } from '@angular/core';
 import Konva from 'konva';
+import { Stage } from 'konva/lib/Stage';
+import { Shape } from 'konva/lib/Shape';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +25,6 @@ export class ArtistService {
       fill: 'orange',
       width: 200,
       height: 100,
-      draggable: true,
     });
     // shapeToBeReturned.on('click', () => {
     //   this.transformer.nodes([shapeToBeReturned]);
@@ -41,7 +42,6 @@ export class ArtistService {
       fill: 'orange',
       width: 100,
       height: 100,
-      draggable: true,
     });
   }
 
@@ -50,7 +50,6 @@ export class ArtistService {
       x: 100,
       y: 100,
       stroke: 'black',
-      draggable: true,
       radius: 100,
     });
     shapeToBeReturned.on('click', () => {
@@ -66,7 +65,6 @@ export class ArtistService {
       fill: 'red',
       outerRadius: 50,
       innerRadius: 30,
-      draggable: true,
     });
   }
 
@@ -78,7 +76,6 @@ export class ArtistService {
       stroke: 'orange',
       outerRadius: 50,
       innerRadius: 30,
-      draggable: true,
       numPoints: 9,
     });
   }
@@ -89,7 +86,6 @@ export class ArtistService {
       y: 100,
       stroke: 'orange',
       strokeWidth: 2,
-      draggable: true,
       points: [0, 0, 200, 0],
     });
     return shapeToBeReturned;
@@ -100,7 +96,6 @@ export class ArtistService {
       x: 100,
       y: 100,
       stroke: 'orange',
-      draggable: true,
       points: [0, 0, 200, 0, 100, -150],
       closed: true,
       lineJoin: 'round',
@@ -116,7 +111,27 @@ export class ArtistService {
       fill: 'pink',
       stroke: 'black',
       strokeWidth: 4,
-      draggable: true,
     });
+  }
+
+  move(myStage: Stage){
+    let i=0;
+    let object!: Stage | Shape;
+    console.log("in move");
+    myStage.listening(true);
+    myStage.on('click touchdown',function(e){
+      i++;
+      object = e.target;
+      if(i>1){
+        myStage.listening(false);
+      }
+      else {
+        myStage.listening(true);
+        object.setAttr("draggable" , true);
+        myStage.on('mouseup' , function(e){
+          object.setAttr("draggable" , false);
+        })
+      }
+    })
   }
 }
