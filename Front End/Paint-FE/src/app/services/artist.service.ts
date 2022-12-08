@@ -146,9 +146,11 @@ export class ArtistService {
       object = e.target; 
       if(i <= 1){
         myStage.listening(true);
+        myStage.container().style.cursor = "move";
         object.setAttr("draggable" , true);
 
         myStage.on('mouseup' , function(e){
+          myStage.container().style.cursor = "default";
           object.setAttr("draggable" , false);
         })
       }
