@@ -8,7 +8,7 @@ export class SharedService {
   private subject = new Subject<any>();
   public content: string[] = [];
   private currentBrushWidth: number = 50;
-  private currentColor: string = '#000000';
+  private currentColor: string = '#7fffd4';
 
   sendClickEvent(a: string) {
     this.content.push(a);
