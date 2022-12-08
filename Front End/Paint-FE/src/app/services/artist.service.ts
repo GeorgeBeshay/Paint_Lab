@@ -49,8 +49,8 @@ export class ArtistService {
 
   drawCirc() {
     let shapeToBeReturned = new Konva.Circle({
-      x: 100,
-      y: 100,
+      x: 150,
+      y: 150,
       stroke: 'black',
       radius: 100,
     });
@@ -83,30 +83,40 @@ export class ArtistService {
 
   drawLine() {
     let shapeToBeReturned = new Konva.Line({
+      name: 'line',
       x: 100,
       y: 100,
       stroke: 'black',
-      strokeWidth: 2,
+      strokeWidth: 5,
       points: [0, 0, 200, 0],
     });
     return shapeToBeReturned;
   }
 
   drawTriangle() {
-    return new Konva.Line({
-      x: 90,
-      y: 200,
-      stroke: 'black',
-      points: [0, 0, 200, 0, 100, -150],
-      closed: true,
-      lineJoin: 'round',
+    return new Konva.RegularPolygon({
+      sides: 3,
+      radius: 100,
+      x: 150,
+      y: 150,
+      strokeWidth: 2,
+      stroke:'black',
     });
+
+    // new Konva.Line({
+    //   x: 90,
+    //   y: 200,
+    //   stroke: 'black',
+    //   points: [0, 0, 200, 0, 100, -150],
+    //   closed: true,
+    //   lineJoin: 'round',
+    // });
   }
 
   drawEllipse(){
     return new Konva.Ellipse({
-      x: 100,
-      y: 100,
+      x: 150,
+      y: 150,
       radiusX: 100,
       radiusY: 50,
       stroke: 'black',
@@ -117,9 +127,9 @@ export class ArtistService {
   drawHexagon() {
     return new Konva.RegularPolygon({
       sides: 6,
-      radius: 66,
-      x: 100,
-      y: 100,
+      radius: 100,
+      x: 150,
+      y: 150,
       stroke: 'black',
       strokeWidth: 2,
     });
@@ -128,9 +138,9 @@ export class ArtistService {
   drawPentagon() {
     return new Konva.RegularPolygon({
       sides: 5,
-      radius: 66,
-      x: 100,
-      y: 100,
+      radius: 100,
+      x: 150,
+      y: 150,
       stroke: 'black',
       strokeWidth: 2,
     });
@@ -185,20 +195,27 @@ export class ArtistService {
     myStage.listening(true);
     myStage.on('click touchdown',function(e){
     object = e.target;
-    
+    if(object.name() === 'line'){
+      transformer.enabledAnchors(['middle-left', 'middle-right']);
+    }
+
     if (object !== myStage) {
       myStage.listening(true);
       transformer.nodes([object]);
       object.on('transformend', function () {
-        console.log('transform end');
-        object.setAttrs({
-          width: object.width() * object.scaleX(),
-          height: object.height() * object.scaleY(),
-          scaleX: 1,
-          scaleY: 1
-        });
-        console.log("resize attr after: ", object.getAttrs());
+        if(object.name() === 'line'){
+          
+        }
+        else{
+          object.setAttrs({
+            width: object.width() * object.scaleX(),
+            height: object.height() * object.scaleY(),
+            scaleX: 1,
+            scaleY: 1
+          });
+        }
       }); 
+      console.log("resize attr after: ", object.getAttrs());
     }else{
       transformer.nodes([]);
       transformer.remove();
