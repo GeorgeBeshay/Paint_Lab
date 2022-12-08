@@ -143,16 +143,18 @@ export class ArtistService {
     myStage.listening(true);
     myStage.on('click touchdown',function(e){
       i++;
-      object = e.target;
-      if(i>1){
-        myStage.listening(false);
-      }
-      else {
+      object = e.target; 
+      if(i <= 1){
         myStage.listening(true);
         object.setAttr("draggable" , true);
+
         myStage.on('mouseup' , function(e){
           object.setAttr("draggable" , false);
         })
+      }
+      else {
+        myStage.listening(false);
+        
       }
     })
   }
@@ -181,23 +183,25 @@ export class ArtistService {
     myStage.listening(true);
     myStage.on('click touchdown',function(e){
     object = e.target;
-    if (object === myStage) {
-        transformer.nodes([]);
-        return;
-    }
-    myStage.listening(true);
-    transformer.nodes([object]);
-    object.on('transformend', function () {
-    console.log('transform end');
-    object.setAttrs({
-    width: object.width() * object.scaleX(),
-    height: object.height() * object.scaleY(),
-    scaleX: 1,
-    scaleY: 1
-    });
-    console.log(object.getAttrs());
-      });    
+    
+    if (object !== myStage) {
+      myStage.listening(true);
+      transformer.nodes([object]);
+      object.on('transformend', function () {
+        console.log('transform end');
+        object.setAttrs({
+          width: object.width() * object.scaleX(),
+          height: object.height() * object.scaleY(),
+          scaleX: 1,
+          scaleY: 1
+        });
+        console.log("resize attr after: ", object.getAttrs());
+      }); 
+    }else{
+      transformer.nodes([]);
+      transformer.remove();
+      return;
+    }    
   })
   }
-
 }
