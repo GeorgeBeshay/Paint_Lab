@@ -18,13 +18,12 @@ export class ArtistService {
   //   this.transformer = transformer;
   // }
 
-
   drawRect() {
     let shapeToBeReturned = new Konva.Rect({
       x: 100,
       y: 100,
       stroke: 'black',
-      strokeWidth: 2,
+      strokeWidth: this.sharedService.getBrushWidth(),
       cornerRadius: 12,
       width: 200,
       height: 100,
@@ -40,7 +39,7 @@ export class ArtistService {
       x: 100,
       y: 100,
       stroke: 'black',
-      strokeWidth: 2,
+      strokeWidth: this.sharedService.getBrushWidth(),
       cornerRadius: 12,
       width: 100,
       height: 100,
@@ -52,6 +51,7 @@ export class ArtistService {
       x: 150,
       y: 150,
       stroke: 'black',
+      strokeWidth: this.sharedService.getBrushWidth(),
       radius: 100,
     });
     shapeToBeReturned.on('click', () => {
@@ -60,26 +60,26 @@ export class ArtistService {
     return shapeToBeReturned;
   }
 
-  drawRing() {
-    return new Konva.Ring({
-      x: 100,
-      y: 100,
-      fill: 'red',
-      outerRadius: 50,
-      innerRadius: 30,
-    });
-  }
+  // drawRing() {
+  //   return new Konva.Ring({
+  //     x: 100,
+  //     y: 100,
+  //     fill: 'red',
+  //     outerRadius: 50,
+  //     innerRadius: 30,
+  //   });
+  // }
 
-  drawStar() {
-    return new Konva.Star({
-      x: 100,
-      y: 100,
-      stroke: 'blaack',
-      outerRadius: 50,
-      innerRadius: 30,
-      numPoints: 9,
-    });
-  }
+  // drawStar() {
+  //   return new Konva.Star({
+  //     x: 100,
+  //     y: 100,
+  //     stroke: 'blaack',
+  //     outerRadius: 50,
+  //     innerRadius: 30,
+  //     numPoints: 9,
+  //   });
+  // }
 
   drawLine() {
     let shapeToBeReturned = new Konva.Line({
@@ -87,7 +87,7 @@ export class ArtistService {
       x: 100,
       y: 100,
       stroke: 'black',
-      strokeWidth: 5,
+      strokeWidth: this.sharedService.getBrushWidth(),
       points: [0, 0, 200, 0],
     });
     return shapeToBeReturned;
@@ -99,8 +99,8 @@ export class ArtistService {
       radius: 100,
       x: 150,
       y: 150,
-      strokeWidth: 2,
-      stroke:'black',
+      strokeWidth: this.sharedService.getBrushWidth(),
+      stroke: 'black',
     });
 
     // new Konva.Line({
@@ -113,14 +113,14 @@ export class ArtistService {
     // });
   }
 
-  drawEllipse(){
+  drawEllipse() {
     return new Konva.Ellipse({
       x: 150,
       y: 150,
       radiusX: 100,
       radiusY: 50,
       stroke: 'black',
-      strokeWidth: 2,
+      strokeWidth: this.sharedService.getBrushWidth(),
     });
   }
 
@@ -131,7 +131,7 @@ export class ArtistService {
       x: 150,
       y: 150,
       stroke: 'black',
-      strokeWidth: 2,
+      strokeWidth: this.sharedService.getBrushWidth(),
     });
   }
 
@@ -142,85 +142,106 @@ export class ArtistService {
       x: 150,
       y: 150,
       stroke: 'black',
-      strokeWidth: 2,
+      strokeWidth: this.sharedService.getBrushWidth(),
     });
   }
 
-  move(myStage: Stage){
-    let i=0;
+  move(myStage: Stage) {
+    let i = 0;
     let object!: Stage | Shape;
-    console.log("in move");
+    let thisExtender = this;
+    console.log('in move');
     myStage.listening(true);
-    myStage.on('click touchdown',function(e){
+    myStage.on('click touchdown', function (e) {
       i++;
-      object = e.target; 
-      if(i <= 1){
+      object = e.target;
+      if (i <= 1) {
         myStage.listening(true);
-        myStage.container().style.cursor = "move";
-        object.setAttr("draggable" , true);
+        myStage.container().style.cursor = 'move';
+        object.setAttr('draggable', true);
 
-        myStage.on('mouseup' , function(e){
-          myStage.container().style.cursor = "default";
-          object.setAttr("draggable" , false);
-        })
-      }
-      else {
+        myStage.on('mouseup', function (e) {
+          myStage.container().style.cursor = 'default';
+          object.setAttr('draggable', false);
+        });
+        thisExtender.sharedService.setClickedButtonFalse(0);
+      } else {
         myStage.listening(false);
-        
       }
-    })
+    });
   }
 
-  color(myStage: Stage){
-    let i=0;
+  color(myStage: Stage) {
+    let i = 0;
     myStage.listening(true);
     let color = this.sharedService.getColor();
-    myStage.on('click' , function(e){
+    let thisExtender = this;
+    myStage.on('click', function (e) {
+      thisExtender.sharedService.setClickedButtonFalse(6);
       i++;
       let object = e.target;
-      if(i>1){
+      if (i > 1) {
         myStage.listening(false);
-      }
-      else {
+      } else {
         myStage.listening(true);
-        object.setAttr("fill",color);
+        object.setAttr('fill', color);
       }
-    })
+    });
   }
-  resize(myStage: Stage, board: Layer){
+  resize(myStage: Stage, board: Layer) {
     let transformer = new Konva.Transformer();
     board.add(transformer);
     let object!: Stage | Shape;
-    console.log("in resize");
+    let thisExtender = this;
+    console.log('in resize');
     myStage.listening(true);
-    myStage.on('click touchdown',function(e){
-    object = e.target;
-    if(object.name() === 'line'){
-      transformer.enabledAnchors(['middle-left', 'middle-right']);
-    }
+    myStage.on('click touchdown', function (e) {
+      thisExtender.sharedService.setClickedButtonFalse(1);
+      object = e.target;
+      if (object.name() === 'line') {
+        transformer.enabledAnchors(['middle-left', 'middle-right']);
+      }
 
-    if (object !== myStage) {
-      myStage.listening(true);
-      transformer.nodes([object]);
-      object.on('transformend', function () {
-        if(object.name() === 'line'){
-          
-        }
-        else{
-          object.setAttrs({
-            width: object.width() * object.scaleX(),
-            height: object.height() * object.scaleY(),
-            scaleX: 1,
-            scaleY: 1
-          });
-        }
-      }); 
-      console.log("resize attr after: ", object.getAttrs());
-    }else{
-      transformer.nodes([]);
-      transformer.remove();
-      return;
-    }    
-  })
+      if (object !== myStage) {
+        myStage.listening(true);
+        transformer.nodes([object]);
+        object.on('transformend', function () {
+          if (object.name() === 'line') {
+          } else {
+            object.setAttrs({
+              width: object.width() * object.scaleX(),
+              height: object.height() * object.scaleY(),
+              scaleX: 1,
+              scaleY: 1,
+            });
+          }
+        });
+        console.log('resize attr after: ', object.getAttrs());
+      } else {
+        transformer.nodes([]);
+        transformer.remove();
+        return;
+      }
+    });
+  }
+
+  copy(myStage: Stage, board: Layer) {
+    let i = 0;
+    myStage.listening(true);
+    let thisExtender = this;
+    myStage.on('click', function (e) {
+      thisExtender.sharedService.setClickedButtonFalse(2);
+      i++;
+      let object = e.target;
+      if (i > 1) {
+        myStage.listening(false);
+      } else {
+        myStage.listening(true);
+        let objectClone = object.clone();
+        objectClone.setAttr('x', 100);
+        objectClone.setAttr('y', 100);
+        board.add(objectClone);
+      }
+    });
   }
 }

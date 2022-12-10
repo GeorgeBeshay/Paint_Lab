@@ -14,4 +14,7 @@ export class LeftTBComponent implements OnInit {
   clickOn(buttonName: string){
     this.sharedService.sendClickEvent(buttonName);
   }
+  getSharedService(){
+    return this.sharedService;
+  }
 }

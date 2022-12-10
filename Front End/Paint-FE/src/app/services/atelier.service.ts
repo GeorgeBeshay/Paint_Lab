@@ -15,7 +15,12 @@ export class AtelierService {
   // ------------ Separator ------------
   constructor(private myArtist: ArtistService) {}
   // ------------ Separator ------------
-  requestAnUpdate(myStage: Stage, board: Layer, request: string | undefined, transformer: any) {
+  requestAnUpdate(
+    myStage: Stage,
+    board: Layer,
+    request: string | undefined,
+    transformer: any
+  ) {
     // this.myArtist.getTransformer(transformer);
     let tempShape: any = null;
     switch (request) {
@@ -47,7 +52,7 @@ export class AtelierService {
         tempShape = this.myArtist.drawHexagon();
         break;
       }
-      case 'ellipse':{
+      case 'ellipse': {
         tempShape = this.myArtist.drawEllipse();
         break;
       }
@@ -83,6 +88,10 @@ export class AtelierService {
       }
       case 'resize': {
         this.myArtist.resize(myStage, board);
+        break;
+      }
+      case 'copy': {
+        this.myArtist.copy(myStage, board);
         break;
       }
       default: {

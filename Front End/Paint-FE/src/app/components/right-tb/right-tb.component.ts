@@ -15,13 +15,18 @@ export class RightTBComponent implements OnInit {
     this.sharedService.sendClickEvent(buttonName);
   }
 
-  changeBrushWidth(brushWid: string) {
+  changeBrushWidth(brushWid: number) {
     // console.log(parseInt(brushWid));
-    this.sharedService.setBrushWidth(parseInt(brushWid));
+    console.log(brushWid);
+    this.sharedService.setBrushWidth(brushWid);
   }
 
   changeColorValue(colVal: string) {
     // console.log(colVal);
     this.sharedService.setColor(colVal);
+  }
+
+  getSharedService() {
+    return this.sharedService;
   }
 }

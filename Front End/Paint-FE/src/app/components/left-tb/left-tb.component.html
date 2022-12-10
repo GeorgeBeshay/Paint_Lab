@@ -42,12 +42,28 @@
       </button>
     </div>
     <div class="tool I">
-      <button (click)="clickOn('cursor')" mat-fab color="" title="Select">
+      <button
+        (click)="clickOn('cursor')"
+        mat-fab
+        color=""
+        title="Select"
+        [ngClass]="{
+          clickedButton: this.getSharedService().getClickedButtons()[5] == true
+        }"
+      >
         <mat-icon>ads_click</mat-icon>
       </button>
     </div>
     <div class="tool K">
-      <button (click)="clickOn('colorFill')" mat-fab color="" title="Fill Color">
+      <button
+        (click)="clickOn('colorFill')"
+        mat-fab
+        color=""
+        title="Fill Color"
+        [ngClass]="{
+          clickedButton: this.getSharedService().getClickedButtons()[6] == true
+        }"
+      >
         <mat-icon>format_color_fill</mat-icon>
       </button>
     </div>
