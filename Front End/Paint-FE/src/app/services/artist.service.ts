@@ -166,7 +166,9 @@ export class ArtistService {
         });
         thisExtender.sharedService.setClickedButtonFalse(0);
       } else {
-        myStage.listening(false);
+        if(!thisExtender.sharedService.getIsSelected()){
+          myStage.listening(false);
+        }
       }
     });
   }
@@ -181,7 +183,9 @@ export class ArtistService {
       i++;
       let object = e.target;
       if (i > 1) {
-        myStage.listening(false);
+        if(!thisExtender.sharedService.getIsSelected()){
+          myStage.listening(false);
+        }
       } else {
         myStage.listening(true);
         object.setAttr('fill', color);
@@ -234,7 +238,9 @@ export class ArtistService {
       i++;
       let object = e.target;
       if (i > 1) {
-        myStage.listening(false);
+        if(!thisExtender.sharedService.getIsSelected()){
+          myStage.listening(false);
+        }
       } else {
         myStage.listening(true);
         let objectClone = object.clone();
@@ -266,6 +272,7 @@ export class ArtistService {
           });
         } else {
           transformer.nodes([]);
+          transformer.remove();
         }
         myStage.on('mouseup', function (e) {
           object.setAttr('draggable', false);
@@ -294,7 +301,9 @@ export class ArtistService {
       shapesHolder.splice(<any>object);
       redoShapesHolder.push(object);
       if (i > 1) {
-        myStage.listening(false);
+        if(!thisExtender.sharedService.getIsSelected()){
+          myStage.listening(false);
+        }
       } else {
         myStage.listening(true);
         object.remove();
