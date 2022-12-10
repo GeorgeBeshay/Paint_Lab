@@ -255,12 +255,14 @@ export class ArtistService {
     let transformer = new Konva.Transformer();
     board.add(transformer);
     let object!: Stage | Shape;
+    let thisExtender = this;
     if (this.sharedService.getIsSelected()) {
       myStage.listening(true);
       myStage.on('click touchdown', function (e) {
         object = e.target;
         object.setAttr('draggable', true);
-        if (object !== myStage) {
+        if (object !== myStage && thisExtender.sharedService.getIsSelected()) {
+          board.add(transformer);
           transformer.nodes([object]);
           object.on('transformend', function () {
             object.setAttrs({
