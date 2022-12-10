@@ -245,16 +245,16 @@ export class ArtistService {
     });
   }
 
-  select(myStage: Stage, board: Layer){
+  select(myStage: Stage, board: Layer) {
     let transformer = new Konva.Transformer();
     board.add(transformer);
     let object!: Stage | Shape;
-    if(this.sharedService.getIsSelected()){
+    if (this.sharedService.getIsSelected()) {
       myStage.listening(true);
-      myStage.on('click touchdown' , function(e){
+      myStage.on('click touchdown', function (e) {
         object = e.target;
-        object.setAttr("draggable" , true);
-        if(object !== myStage) {
+        object.setAttr('draggable', true);
+        if (object !== myStage) {
           transformer.nodes([object]);
           object.on('transformend', function () {
             object.setAttrs({
@@ -264,19 +264,41 @@ export class ArtistService {
               scaleY: 1,
             });
           });
-        }
-        else {
+        } else {
           transformer.nodes([]);
         }
-        myStage.on('mouseup' , function(e){
-          object.setAttr('draggable' , false);
-        })
-      })
-    }
-    else {
+        myStage.on('mouseup', function (e) {
+          object.setAttr('draggable', false);
+        });
+      });
+    } else {
       transformer.nodes([]);
       transformer.remove();
       myStage.listening(false);
     }
+  }
+
+  erase(
+    myStage: Stage,
+    board: Layer,
+    shapesHolder: any[],
+    redoShapesHolder: any[]
+  ) {
+    let i = 0;
+    myStage.listening(true);
+    let thisExtender = this;
+    myStage.on('click', function (e) {
+      thisExtender.sharedService.setClickedButtonFalse(3);
+      i++;
+      let object = e.target;
+      shapesHolder.splice(<any>object);
+      redoShapesHolder.push(object);
+      if (i > 1) {
+        myStage.listening(false);
+      } else {
+        myStage.listening(true);
+        object.remove();
+      }
+    });
   }
 }
