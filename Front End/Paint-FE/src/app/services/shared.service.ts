@@ -51,6 +51,9 @@ export class SharedService {
       this.clickedButtons[i] = false;
     }
   }
+  getIsSelected(){
+    return this.clickedButtons[5];
+  }
   updateButtonsStates(buttonName: string) {
     console.log(buttonName);
     switch (buttonName) {
@@ -75,7 +78,12 @@ export class SharedService {
         break;
       }
       case 'cursor': {
-        this.clickedButtons[5] = true;
+        if(this.clickedButtons[5]) {
+          this.clickedButtons[5] = false;
+        }
+        else {
+          this.clickedButtons[5] = true;
+        }
         break;
       }
       case 'colorFill': {

@@ -94,6 +94,10 @@ export class AtelierService {
         this.myArtist.copy(myStage, board);
         break;
       }
+      case 'cursor' : {
+        this.myArtist.select(myStage, board);
+        break;
+      }
       default: {
         break;
       }

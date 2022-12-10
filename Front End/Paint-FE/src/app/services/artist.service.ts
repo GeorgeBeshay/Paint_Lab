@@ -244,4 +244,39 @@ export class ArtistService {
       }
     });
   }
+
+  select(myStage: Stage, board: Layer){
+    let transformer = new Konva.Transformer();
+    board.add(transformer);
+    let object!: Stage | Shape;
+    if(this.sharedService.getIsSelected()){
+      myStage.listening(true);
+      myStage.on('click touchdown' , function(e){
+        object = e.target;
+        object.setAttr("draggable" , true);
+        if(object !== myStage) {
+          transformer.nodes([object]);
+          object.on('transformend', function () {
+            object.setAttrs({
+              width: object.width() * object.scaleX(),
+              height: object.height() * object.scaleY(),
+              scaleX: 1,
+              scaleY: 1,
+            });
+          });
+        }
+        else {
+          transformer.nodes([]);
+        }
+        myStage.on('mouseup' , function(e){
+          object.setAttr('draggable' , false);
+        })
+      })
+    }
+    else {
+      transformer.nodes([]);
+      transformer.remove();
+      myStage.listening(false);
+    }
+  }
 }
