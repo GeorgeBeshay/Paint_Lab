@@ -15,7 +15,7 @@ import { BackEndCallerService } from './back-end-caller.service';
 export class ArtistService {
   private backEndCaller = new BackEndCallerService(this.http);
 
-  constructor(private sharedService: SharedService, private http: HttpClient) {}
+  constructor(public sharedService: SharedService, private http: HttpClient) {}
 
   async drawRect() {
     return new Konva.Rect(

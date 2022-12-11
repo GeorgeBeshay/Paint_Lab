@@ -19,7 +19,10 @@ export class PaintingBoardComponent implements OnInit {
   clickEventSubscription: Subscription;
   private myStage!: Stage;
   private board!: Layer;
-  private myArtist: ArtistService = new ArtistService(this.sharedService, this.http);
+  private myArtist: ArtistService = new ArtistService(
+    this.sharedService,
+    this.http
+  );
   private myAtelier: AtelierService = new AtelierService(this.myArtist);
   private transformer: any;
   // ---------- Separator ----------
@@ -33,6 +36,10 @@ export class PaintingBoardComponent implements OnInit {
           this.sharedService.content.pop(),
           this.transformer
         );
+        this.myStage = this.sharedService.sharedStage;
+        this.board = this.myStage.getLayers()[0];
+        // console.log('Inside painting board');
+        // console.log(this.myStage);
       });
   }
   // ---------- Separator ----------
@@ -49,5 +56,6 @@ export class PaintingBoardComponent implements OnInit {
     this.transformer = new Konva.Transformer();
     this.board.add(this.transformer);
     this.myStage.add(this.board);
+    this.sharedService.sharedStage = this.myStage;
   }
 }

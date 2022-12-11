@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { Stage } from 'konva/lib/Stage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
   private subject = new Subject<any>();
+  public sharedStage!: Stage;
   public content: string[] = [];
   private currentBrushWidth: number = 5;
   private currentColor: string = '#7fffd4';
@@ -51,7 +53,7 @@ export class SharedService {
       this.clickedButtons[i] = false;
     }
   }
-  getIsSelected(){
+  getIsSelected() {
     return this.clickedButtons[5];
   }
   updateButtonsStates(buttonName: string) {
@@ -78,10 +80,9 @@ export class SharedService {
         break;
       }
       case 'cursor': {
-        if(this.clickedButtons[5]) {
+        if (this.clickedButtons[5]) {
           this.clickedButtons[5] = false;
-        }
-        else {
+        } else {
           this.clickedButtons[5] = true;
         }
         break;

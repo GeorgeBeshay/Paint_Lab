@@ -110,16 +110,22 @@ export class AtelierService {
         break;
       }
       case 'load': {
-        // myStage = Konva.Node.create(await <any>this.myArtist.load(myStage , board), 'konva-holder');
-        // myStage.draw();
-        myStage = new Konva.Stage({
-          container: 'konva-holder',
-          width: 500,
-          height: 500,
-        });
+        myStage = Konva.Node.create(
+          await (<any>this.myArtist.load(myStage, board)),
+          'konva-holder'
+        );
         myStage.listening(true);
+        // myStage.draw();
+        // myStage = new Konva.Stage({
+        //   container: 'konva-holder',
+        //   width: 500,
+        //   height: 500,
+        // });
+        // myStage.listening(true);
+        // myStage.add(new Konva.Layer());
         //myStage = await <any>this.myArtist.load(myStage , board);
         // this.tempStage = myStage;
+        this.myArtist.sharedService.sharedStage = myStage;
         break;
       }
       default: {
