@@ -21,19 +21,28 @@ export class ArtistService {
   //   this.transformer = transformer;
   // }
 
-  drawRect() {
-    let shapeData = this.backEndCaller.requestShapeFromBE('rect');
+  async drawRect(board: Layer) {
+    let shapeData = await this.backEndCaller.requestShapeFromBE('rect');
     console.log('Statement after request');
     // let shapeToBeReturned = new Konva.Rect(shapeData); // not working due to the delay or request.
-    let shapeToBeReturned = new Konva.Rect({
-      x: 100,
-      y: 100,
-      stroke: 'black',
-      strokeWidth: this.sharedService.getBrushWidth(),
-      cornerRadius: 12,
-      width: 200,
-      height: 100,
-    });
+    // let shapeToBeReturned = new Konva.Rect({
+    //   x: 100,
+    //   y: 100,
+    //   stroke: 'black',
+    //   strokeWidth: this.sharedService.getBrushWidth(),
+    //   cornerRadius: 12,
+    //   width: 200,
+    //   height: 100,
+    // });
+    console.log(shapeData);
+    let shapeToBeReturned = new Konva.Rect();
+    //let datatest = {"x":50, "y":50,"draggable":true, "strokeWidth": 5};
+    shapeToBeReturned.setAttrs(shapeData);
+    shapeToBeReturned.setAttr("fill" , "black");
+    shapeToBeReturned.setAttr("width",20);
+    shapeToBeReturned.setAttr("height" , 20);
+    console.log(shapeToBeReturned);
+    //board.add(shapeToBeReturned);
     return shapeToBeReturned;
   }
 

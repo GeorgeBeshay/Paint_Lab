@@ -25,8 +25,9 @@ export class AtelierService {
     let tempShape: any = null;
     switch (request) {
       case 'rectangle': {
-        
-        tempShape = this.myArtist.drawRect();
+
+        tempShape = this.myArtist.drawRect(board);
+        //this.myArtist.drawRect(board);
         break;
       }
       case 'square': {
@@ -113,6 +114,7 @@ export class AtelierService {
       }
     }
     if (tempShape != null) {
+      console.log("doesn't equal null");
       board.add(tempShape);
       this.shapesHolder.push(tempShape);
     }
