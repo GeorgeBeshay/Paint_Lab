@@ -2,7 +2,7 @@ package ShapesPackage;
 
 public class Pentagon extends Shape{
 	
-	private double sides;
+	private int sides;
 	private double radius;
 	
 	public Pentagon() {
@@ -32,11 +32,11 @@ public class Pentagon extends Shape{
 		return new Pentagon(this);
 	}
 
-	public double getSides() {
+	public int getSides() {
 		return sides;
 	}
 
-	public void setSides(double sides) {
+	public void setSides(int sides) {
 		this.sides = sides;
 	}
 

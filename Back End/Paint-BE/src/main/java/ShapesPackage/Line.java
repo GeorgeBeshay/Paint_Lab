@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Line extends Shape{
 	
-	double Points[];
+	private double Points[];
 	
 	public Line() {
 		super();

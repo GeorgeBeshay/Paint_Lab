@@ -28,14 +28,18 @@ public class ServerController {
 	
 	@PostMapping(value = {"/save/"})
 	public Object saveStage(@RequestBody Object stage) {
-		System.out.println("In save");
 		myServerCore.updateObj(stage);
+		System.out.println("------------------------------------------------");
+		System.out.println("Front End Server Requested to save:" + stage + 
+				"\nBack End Server saved: \n");
 		return stage;
 	}
 	
 	@PostMapping(value = {"/load/"})
 	public Object loadStage() {
-		System.out.println("In load");
+		System.out.println("------------------------------------------------");
+		System.out.println("Front End Server Requested to load:" + 
+				"\nBack End Server loaded: \n" + myServerCore.getObj());
 		return myServerCore.getObj();
 	}
 

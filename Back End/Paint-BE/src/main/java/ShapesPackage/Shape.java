@@ -1,6 +1,6 @@
 package ShapesPackage;
 
-public abstract class Shape {
+public abstract class Shape implements Cloneable{
 	
 	private double x;
 	private double y;

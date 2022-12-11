@@ -16,8 +16,8 @@ public class Square extends Shape{
 	}
 
 	public void draw() {
-		this.width = 20;
-		this.height = 20;
+		this.width = 80;
+		this.height = 80;
 	}
 
 	@Override
