@@ -9,6 +9,7 @@ public class ServerCore {
 	
 	private static ShapeFactory shapeFactory = ShapeFactory.getInstance();
 	private static ServerCore serverCore;
+	private Object obj ;
 	
 	private ServerCore() {}
 	
@@ -22,6 +23,14 @@ public class ServerCore {
 		if(ServerCore.serverCore == null) 
 			return new ServerCore();
 		return ServerCore.serverCore;
+	}
+	
+	public void updateObj (Object stage) {
+		obj = stage;
+	}
+	
+	public Object getObj () {
+		return obj;
 	}
 
 }

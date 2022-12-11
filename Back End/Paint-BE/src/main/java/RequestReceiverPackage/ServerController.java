@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ShapesPackage.*;
@@ -24,6 +24,19 @@ public class ServerController {
 		System.out.println("Front End Server Requested a " + shapeName + 
 				"\nBack End Server is Sending: \n" + shapeToBeReturned.toString());
 		return shapeToBeReturned;
+	}
+	
+	@PostMapping(value = {"/save/"})
+	public Object saveStage(@RequestBody Object stage) {
+		System.out.println("In save");
+		myServerCore.updateObj(stage);
+		return stage;
+	}
+	
+	@PostMapping(value = {"/load/"})
+	public Object loadStage() {
+		System.out.println("In load");
+		return myServerCore.getObj();
 	}
 
 }
