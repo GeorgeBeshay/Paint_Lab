@@ -228,4 +228,25 @@ export class ArtistService {
       }
     });
   }
+
+  async save(myStage: Stage){
+    let dataComing = await this.backEndCaller.sendStage(myStage);
+    console.log("In save in atrist");
+    //console.log(board.getChildren()[1]);
+    console.log(dataComing);
+  }
+
+  async load(myStage: Stage ,board: Layer){
+    return await this.backEndCaller.getStage();
+    // let dataComing = board;
+    // console.log("in load");
+    // console.log(dataComing);
+    // myStage = Konva.Node.create(dataComing, 'konva-holder');
+    // board.remove();
+    // console.log(myStage);
+    // //myStage.add(<any>dataComing);
+    // board.add(<any>dataComing);
+    // console.log(stage);
+    // return myStage;
+  }
 }
