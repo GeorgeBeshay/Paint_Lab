@@ -25,6 +25,7 @@ export class AtelierService {
     let tempShape: any = null;
     switch (request) {
       case 'rectangle': {
+        
         tempShape = this.myArtist.drawRect();
         break;
       }

@@ -6,19 +6,25 @@ import { Stage } from 'konva/lib/Stage';
 import { Shape } from 'konva/lib/Shape';
 import { SharedService } from 'src/app/services/shared.service';
 import { Layer } from 'konva/lib/Layer';
+import { HttpClient } from '@angular/common/http';
+import { BackEndCallerService } from './back-end-caller.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArtistService {
+  private backEndCaller = new BackEndCallerService(this.http);
   //private sharedService: SharedService = new SharedService();
-  constructor(private sharedService: SharedService) {}
+  constructor(private sharedService: SharedService, private http: HttpClient) {}
   // transformer: any;
   // getTransformer(transformer: any){
   //   this.transformer = transformer;
   // }
 
   drawRect() {
+    let shapeData = this.backEndCaller.requestShapeFromBE('rect');
+    console.log('Statement after request');
+    // let shapeToBeReturned = new Konva.Rect(shapeData); // not working due to the delay or request.
     let shapeToBeReturned = new Konva.Rect({
       x: 100,
       y: 100,
@@ -28,9 +34,6 @@ export class ArtistService {
       width: 200,
       height: 100,
     });
-    // shapeToBeReturned.on('click', () => {
-    //   this.transformer.nodes([shapeToBeReturned]);
-    // });
     return shapeToBeReturned;
   }
 
@@ -166,7 +169,7 @@ export class ArtistService {
         });
         thisExtender.sharedService.setClickedButtonFalse(0);
       } else {
-        if(!thisExtender.sharedService.getIsSelected()){
+        if (!thisExtender.sharedService.getIsSelected()) {
           myStage.listening(false);
         }
       }
@@ -183,7 +186,7 @@ export class ArtistService {
       i++;
       let object = e.target;
       if (i > 1) {
-        if(!thisExtender.sharedService.getIsSelected()){
+        if (!thisExtender.sharedService.getIsSelected()) {
           myStage.listening(false);
         }
       } else {
@@ -238,7 +241,7 @@ export class ArtistService {
       i++;
       let object = e.target;
       if (i > 1) {
-        if(!thisExtender.sharedService.getIsSelected()){
+        if (!thisExtender.sharedService.getIsSelected()) {
           myStage.listening(false);
         }
       } else {
@@ -303,7 +306,7 @@ export class ArtistService {
       shapesHolder.splice(<any>object);
       redoShapesHolder.push(object);
       if (i > 1) {
-        if(!thisExtender.sharedService.getIsSelected()){
+        if (!thisExtender.sharedService.getIsSelected()) {
           myStage.listening(false);
         }
       } else {
