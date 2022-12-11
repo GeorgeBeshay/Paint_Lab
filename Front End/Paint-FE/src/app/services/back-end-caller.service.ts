@@ -14,16 +14,26 @@ export class BackEndCallerService {
     return await firstValueFrom(this.http.post(this.url + shapeName, null));
   }
 
-  async sendStage(board: any){
-    console.log("In save in backEndCaller");
-    let dataToBeReturned = await firstValueFrom(this.http.post(`http://localhost:${this.port}/callBackEndServer/save/` , board));
-    console.log("After request");
+  async sendStage(board: any) {
+    console.log('In save in backEndCaller');
+    let dataToBeReturned = await firstValueFrom(
+      this.http.post(
+        `http://localhost:${this.port}/callBackEndServer/save/`,
+        board
+      )
+    );
+    console.log('After request');
     console.log(dataToBeReturned);
     return dataToBeReturned;
   }
 
-  async getStage(){
-    let dataToBeReturned = await firstValueFrom(this.http.post(`http://localhost:${this.port}/callBackEndServer/load/`,null));
+  async getStage() {
+    let dataToBeReturned = await firstValueFrom(
+      this.http.post(
+        `http://localhost:${this.port}/callBackEndServer/load/`,
+        null
+      )
+    );
     console.log(dataToBeReturned);
     return dataToBeReturned;
   }
