@@ -11,7 +11,6 @@ export class AtelierService {
   // ------------ Separator ------------
   private shapesHolder: any[] = [];
   private redoShapesHolder: any[] = [];
-  //private myArtist: ArtistService = new ArtistService();
   // ------------ Separator ------------
   constructor(private myArtist: ArtistService) {}
   // ------------ Separator ------------
@@ -21,17 +20,14 @@ export class AtelierService {
     request: string | undefined,
     transformer: any
   ) {
-    // this.myArtist.getTransformer(transformer);
     let tempShape: any = null;
     switch (request) {
       case 'rectangle': {
-
-         tempShape = await this.myArtist.drawRect(board);
-        //this.myArtist.drawRect(board);
+        tempShape = await this.myArtist.drawRect();
         break;
       }
       case 'square': {
-        tempShape = this.myArtist.drawSquare();
+        tempShape = await this.myArtist.drawSquare();
         break;
       }
       case 'circle': {
@@ -39,23 +35,23 @@ export class AtelierService {
         break;
       }
       case 'line': {
-        tempShape = this.myArtist.drawLine();
+        tempShape = await this.myArtist.drawLine();
         break;
       }
       case 'triangle': {
-        tempShape = this.myArtist.drawTriangle();
+        tempShape = await this.myArtist.drawTriangle();
         break;
       }
       case 'pentagon': {
-        tempShape = this.myArtist.drawPentagon();
+        tempShape = await this.myArtist.drawPentagon();
         break;
       }
       case 'hexagon': {
-        tempShape = this.myArtist.drawHexagon();
+        tempShape = await this.myArtist.drawHexagon();
         break;
       }
       case 'ellipse': {
-        tempShape = this.myArtist.drawEllipse();
+        tempShape = await this.myArtist.drawEllipse();
         break;
       }
       case 'undo': {
@@ -115,7 +111,7 @@ export class AtelierService {
     }
     if (tempShape != null) {
       console.log("doesn't equal null");
-       board.add(tempShape);
+      board.add(tempShape);
       this.shapesHolder.push(tempShape);
     }
     // this.reDraw(board);

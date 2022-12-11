@@ -11,19 +11,6 @@ export class BackEndCallerService {
   constructor(private http: HttpClient) {}
 
   async requestShapeFromBE(shapeName: string) {
-    // let dataToBeReturned;
-    // this.http
-    //   .post(this.url + shapeName, null)
-    //   .subscribe(
-    //     (data: any) => (
-    //       console.log('statement inside request'),
-    //       console.log(data),
-    //       (dataToBeReturned = data)
-    //     )
-    //   );
-
-    let dataToBeReturned = await firstValueFrom(this.http.post(this.url + shapeName, null));
-    console.log(dataToBeReturned);
-    return dataToBeReturned;
+    return await firstValueFrom(this.http.post(this.url + shapeName, null));
   }
 }

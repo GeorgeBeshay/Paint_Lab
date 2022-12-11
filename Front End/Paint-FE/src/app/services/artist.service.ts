@@ -14,158 +14,53 @@ import { BackEndCallerService } from './back-end-caller.service';
 })
 export class ArtistService {
   private backEndCaller = new BackEndCallerService(this.http);
-  //private sharedService: SharedService = new SharedService();
+
   constructor(private sharedService: SharedService, private http: HttpClient) {}
-  // transformer: any;
-  // getTransformer(transformer: any){
-  //   this.transformer = transformer;
-  // }
 
-  async drawRect(board: Layer) {
-    let shapeData = await this.backEndCaller.requestShapeFromBE('rect');
-    console.log('Statement after request');
-    // let shapeToBeReturned = new Konva.Rect(shapeData); // not working due to the delay or request.
-    // let shapeToBeReturned = new Konva.Rect({
-    //   x: 100,
-    //   y: 100,
-    //   stroke: 'black',
-    //   strokeWidth: this.sharedService.getBrushWidth(),
-    //   cornerRadius: 12,
-    //   width: 200,
-    //   height: 100,
-    // });
-    console.log(shapeData);
-    let shapeToBeReturned = new Konva.Rect();
-    //let datatest = {"x":50, "y":50,"draggable":true, "strokeWidth": 5};
-    shapeToBeReturned.setAttrs(shapeData);
-    shapeToBeReturned.setAttr("fill" , "black");
-    shapeToBeReturned.setAttr("width",20);
-    shapeToBeReturned.setAttr("height" , 20);
-    console.log(shapeToBeReturned);
-    //board.add(shapeToBeReturned);
-    return shapeToBeReturned;
-  }
-
-  drawSquare() {
-    return new Konva.Rect({
-      x: 100,
-      y: 100,
-      stroke: 'black',
-      strokeWidth: this.sharedService.getBrushWidth(),
-      cornerRadius: 12,
-      width: 100,
-      height: 100,
-    });
+  async drawRect() {
+    return new Konva.Rect(
+      await this.backEndCaller.requestShapeFromBE('Rectangle')
+    );
   }
 
   async drawCirc() {
-    // let shapeToBeReturned = new Konva.Circle({
-    //   x: 150,
-    //   y: 150,
-    //   stroke: 'black',
-    //   strokeWidth: this.sharedService.getBrushWidth(),
-    //   radius: 100,
-    // });
-    // shapeToBeReturned.on('click', () => {
-    //   console.log(shapeToBeReturned.getAttrs());
-    // });
-    let shapeData = await this.backEndCaller.requestShapeFromBE('Circle');
-    console.log('Statement after request');
-    
-    console.log(shapeData);
-    let shapeToBeReturned = new Konva.Circle();
-    //let datatest = {"x":50, "y":50,"draggable":true, "strokeWidth": 5};
-    shapeToBeReturned.setAttrs(shapeData);
-    shapeToBeReturned.setAttr("fill" , "black");
-    shapeToBeReturned.setAttr("radius",20);
-    console.log(shapeToBeReturned);
-    return shapeToBeReturned;
+    return new Konva.Circle(
+      await this.backEndCaller.requestShapeFromBE('Circle')
+    );
   }
 
-  // drawRing() {
-  //   return new Konva.Ring({
-  //     x: 100,
-  //     y: 100,
-  //     fill: 'red',
-  //     outerRadius: 50,
-  //     innerRadius: 30,
-  //   });
-  // }
-
-  // drawStar() {
-  //   return new Konva.Star({
-  //     x: 100,
-  //     y: 100,
-  //     stroke: 'blaack',
-  //     outerRadius: 50,
-  //     innerRadius: 30,
-  //     numPoints: 9,
-  //   });
-  // }
-
-  drawLine() {
-    let shapeToBeReturned = new Konva.Line({
-      name: 'line',
-      x: 100,
-      y: 100,
-      stroke: 'black',
-      strokeWidth: this.sharedService.getBrushWidth(),
-      points: [0, 0, 200, 0],
-    });
-    return shapeToBeReturned;
+  async drawTriangle() {
+    return new Konva.RegularPolygon(
+      await (<any>this.backEndCaller.requestShapeFromBE('Triangle'))
+    );
   }
 
-  drawTriangle() {
-    return new Konva.RegularPolygon({
-      sides: 3,
-      radius: 100,
-      x: 150,
-      y: 150,
-      strokeWidth: this.sharedService.getBrushWidth(),
-      stroke: 'black',
-    });
-
-    // new Konva.Line({
-    //   x: 90,
-    //   y: 200,
-    //   stroke: 'black',
-    //   points: [0, 0, 200, 0, 100, -150],
-    //   closed: true,
-    //   lineJoin: 'round',
-    // });
+  async drawSquare() {
+    return new Konva.Rect(
+      await this.backEndCaller.requestShapeFromBE('Square')
+    );
   }
 
-  drawEllipse() {
-    return new Konva.Ellipse({
-      x: 150,
-      y: 150,
-      radiusX: 100,
-      radiusY: 50,
-      stroke: 'black',
-      strokeWidth: this.sharedService.getBrushWidth(),
-    });
+  async drawLine() {
+    return new Konva.Line(await this.backEndCaller.requestShapeFromBE('Line'));
   }
 
-  drawHexagon() {
-    return new Konva.RegularPolygon({
-      sides: 6,
-      radius: 100,
-      x: 150,
-      y: 150,
-      stroke: 'black',
-      strokeWidth: this.sharedService.getBrushWidth(),
-    });
+  async drawPentagon() {
+    return new Konva.RegularPolygon(
+      await (<any>this.backEndCaller.requestShapeFromBE('Pentagon'))
+    );
   }
 
-  drawPentagon() {
-    return new Konva.RegularPolygon({
-      sides: 5,
-      radius: 100,
-      x: 150,
-      y: 150,
-      stroke: 'black',
-      strokeWidth: this.sharedService.getBrushWidth(),
-    });
+  async drawHexagon() {
+    return new Konva.RegularPolygon(
+      await (<any>this.backEndCaller.requestShapeFromBE('Hexagon'))
+    );
+  }
+
+  async drawEllipse() {
+    return new Konva.Ellipse(
+      await (<any>this.backEndCaller.requestShapeFromBE('Ellipse'))
+    );
   }
 
   move(myStage: Stage) {
@@ -181,7 +76,6 @@ export class ArtistService {
         myStage.listening(true);
         myStage.container().style.cursor = 'move';
         object.setAttr('draggable', true);
-
         myStage.on('mouseup', function (e) {
           myStage.container().style.cursor = 'default';
           object.setAttr('draggable', false);
@@ -214,6 +108,7 @@ export class ArtistService {
       }
     });
   }
+
   resize(myStage: Stage, board: Layer) {
     let transformer = new Konva.Transformer();
     board.add(transformer);
@@ -227,7 +122,6 @@ export class ArtistService {
       if (object.name() === 'line') {
         transformer.enabledAnchors(['middle-left', 'middle-right']);
       }
-
       if (object !== myStage) {
         myStage.listening(true);
         transformer.nodes([object]);
