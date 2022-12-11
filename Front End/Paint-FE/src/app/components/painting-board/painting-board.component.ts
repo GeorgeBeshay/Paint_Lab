@@ -36,7 +36,7 @@ export class PaintingBoardComponent implements OnInit {
           this.sharedService.content.pop(),
           this.transformer
         );
-        this.myStage = this.sharedService.sharedStage;
+        this.myStage = this.sharedService.getSharedStage();
         this.board = this.myStage.getLayers()[0];
         // console.log('Inside painting board');
         // console.log(this.myStage);
@@ -56,6 +56,6 @@ export class PaintingBoardComponent implements OnInit {
     this.transformer = new Konva.Transformer();
     this.board.add(this.transformer);
     this.myStage.add(this.board);
-    this.sharedService.sharedStage = this.myStage;
+    this.sharedService.setSharedStage(this.myStage);
   }
 }

@@ -20,6 +20,7 @@ export class AtelierService {
     request: string | undefined,
     transformer: any
   ) {
+    console.log(myStage);
     let tempShape: any = null;
     switch (request) {
       case 'rectangle': {
@@ -114,18 +115,7 @@ export class AtelierService {
           await (<any>this.myArtist.load(myStage, board)),
           'konva-holder'
         );
-        myStage.listening(true);
-        // myStage.draw();
-        // myStage = new Konva.Stage({
-        //   container: 'konva-holder',
-        //   width: 500,
-        //   height: 500,
-        // });
-        // myStage.listening(true);
-        // myStage.add(new Konva.Layer());
-        //myStage = await <any>this.myArtist.load(myStage , board);
-        // this.tempStage = myStage;
-        this.myArtist.sharedService.sharedStage = myStage;
+        this.myArtist.sharedService.setSharedStage(myStage);
         break;
       }
       default: {
@@ -133,7 +123,6 @@ export class AtelierService {
       }
     }
     if (tempShape != null) {
-      console.log("doesn't equal null");
       board.add(tempShape);
       this.shapesHolder.push(tempShape);
     }

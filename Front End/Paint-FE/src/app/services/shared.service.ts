@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Stage } from 'konva/lib/Stage';
+import { Layer } from 'konva/lib/Layer';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
   private subject = new Subject<any>();
-  public sharedStage!: Stage;
+  private sharedStage!: Stage;
   public content: string[] = [];
   private currentBrushWidth: number = 5;
   private currentColor: string = '#7fffd4';
@@ -25,6 +26,8 @@ export class SharedService {
   sendClickEvent(a: string) {
     this.updateButtonsStates(a);
     this.content.push(a);
+    this.content.push('do nothing');
+    this.subject.next(void 0);
     this.subject.next(void 0);
   }
   getClickEvent(): Observable<any> {
@@ -95,5 +98,11 @@ export class SharedService {
         break;
       }
     }
+  }
+  getSharedStage() {
+    return this.sharedStage;
+  }
+  setSharedStage(stage: Stage) {
+    this.sharedStage = stage;
   }
 }
