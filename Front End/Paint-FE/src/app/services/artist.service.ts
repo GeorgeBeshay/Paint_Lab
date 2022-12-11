@@ -58,17 +58,27 @@ export class ArtistService {
     });
   }
 
-  drawCirc() {
-    let shapeToBeReturned = new Konva.Circle({
-      x: 150,
-      y: 150,
-      stroke: 'black',
-      strokeWidth: this.sharedService.getBrushWidth(),
-      radius: 100,
-    });
-    shapeToBeReturned.on('click', () => {
-      console.log(shapeToBeReturned.getAttrs());
-    });
+  async drawCirc() {
+    // let shapeToBeReturned = new Konva.Circle({
+    //   x: 150,
+    //   y: 150,
+    //   stroke: 'black',
+    //   strokeWidth: this.sharedService.getBrushWidth(),
+    //   radius: 100,
+    // });
+    // shapeToBeReturned.on('click', () => {
+    //   console.log(shapeToBeReturned.getAttrs());
+    // });
+    let shapeData = await this.backEndCaller.requestShapeFromBE('Circle');
+    console.log('Statement after request');
+    
+    console.log(shapeData);
+    let shapeToBeReturned = new Konva.Circle();
+    //let datatest = {"x":50, "y":50,"draggable":true, "strokeWidth": 5};
+    shapeToBeReturned.setAttrs(shapeData);
+    shapeToBeReturned.setAttr("fill" , "black");
+    shapeToBeReturned.setAttr("radius",20);
+    console.log(shapeToBeReturned);
     return shapeToBeReturned;
   }
 

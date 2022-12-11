@@ -15,7 +15,7 @@ export class AtelierService {
   // ------------ Separator ------------
   constructor(private myArtist: ArtistService) {}
   // ------------ Separator ------------
-  requestAnUpdate(
+  async requestAnUpdate(
     myStage: Stage,
     board: Layer,
     request: string | undefined,
@@ -26,7 +26,7 @@ export class AtelierService {
     switch (request) {
       case 'rectangle': {
 
-        tempShape = this.myArtist.drawRect(board);
+         tempShape = await this.myArtist.drawRect(board);
         //this.myArtist.drawRect(board);
         break;
       }
@@ -35,7 +35,7 @@ export class AtelierService {
         break;
       }
       case 'circle': {
-        tempShape = this.myArtist.drawCirc();
+        tempShape = await this.myArtist.drawCirc();
         break;
       }
       case 'line': {
@@ -115,7 +115,7 @@ export class AtelierService {
     }
     if (tempShape != null) {
       console.log("doesn't equal null");
-      board.add(tempShape);
+       board.add(tempShape);
       this.shapesHolder.push(tempShape);
     }
     // this.reDraw(board);
