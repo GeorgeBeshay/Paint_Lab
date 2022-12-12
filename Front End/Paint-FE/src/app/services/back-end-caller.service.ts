@@ -76,4 +76,13 @@ export class BackEndCallerService {
     console.log(dataToBeReturned);
     return dataToBeReturned;
   }
+
+  async refresh() {
+    await firstValueFrom(
+      this.http.post(
+        `http://localhost:${this.port}/callBackEndServer/refreshSession/`,
+        null
+      )
+    );
+  }
 }

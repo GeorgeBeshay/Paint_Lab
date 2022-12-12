@@ -6,7 +6,6 @@ import { Layer } from 'konva/lib/Layer';
 @Injectable({
   providedIn: 'root',
 })
-
 export class SharedService {
   private subject = new Subject<any>();
   private sharedStage!: Stage;

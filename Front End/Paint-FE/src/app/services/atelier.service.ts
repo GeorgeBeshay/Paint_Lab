@@ -37,6 +37,7 @@ export class AtelierService {
       case 'circle': {
         correctInputFlag = true;
         tempShape = await this.myArtist.drawCirc();
+        console.log('Created a circle');
         break;
       }
       case 'line': {
@@ -64,30 +65,6 @@ export class AtelierService {
         tempShape = await this.myArtist.drawEllipse();
         break;
       }
-      case 'undo': {
-        if (this.shapesHolder.length > 0) {
-          // this.redoShapesHolder.push(this.shapesHolder.pop());
-          // this.reDraw(board);
-          myStage = Konva.Node.create(
-            await (<any>this.myArtist.undoStage()),
-            'konva-holder'
-          );
-          this.myArtist.sharedService.setSharedStage(myStage);
-        }
-        break;
-      }
-      case 'redo': {
-        // if (this.redoShapesHolder.length > 0) {
-        // this.shapesHolder.push(this.redoShapesHolder.pop());
-        // this.reDraw(board);
-        myStage = Konva.Node.create(
-          await (<any>this.myArtist.redoStage()),
-          'konva-holder'
-        );
-        this.myArtist.sharedService.setSharedStage(myStage);
-        // }
-        break;
-      }
       case 'clear': {
         correctInputFlag = true;
         board.removeChildren();
@@ -96,8 +73,8 @@ export class AtelierService {
         break;
       }
       case 'move': {
-        correctInputFlag = true;
-        this.myArtist.move(myStage);
+        // correctInputFlag = true;
+        await this.myArtist.move(myStage);
         break;
       }
       case 'colorFill': {
@@ -130,13 +107,27 @@ export class AtelierService {
         );
         break;
       }
+      case 'undo': {
+        myStage = Konva.Node.create(
+          await (<any>this.myArtist.undoStage()),
+          'konva-holder'
+        );
+        this.myArtist.sharedService.setSharedStage(myStage);
+        break;
+      }
+      case 'redo': {
+        myStage = Konva.Node.create(
+          await (<any>this.myArtist.redoStage()),
+          'konva-holder'
+        );
+        this.myArtist.sharedService.setSharedStage(myStage);
+        break;
+      }
       case 'save': {
-        // correctInputFlag = true;
         await this.myArtist.save();
         break;
       }
       case 'load': {
-        // correctInputFlag = true;
         myStage = Konva.Node.create(
           await (<any>this.myArtist.load()),
           'konva-holder'
@@ -144,27 +135,22 @@ export class AtelierService {
         this.myArtist.sharedService.setSharedStage(myStage);
         break;
       }
+      case 'refresh': {
+        await this.myArtist.refreshStage;
+        break;
+      }
       default: {
         break;
       }
-    }
-    if (correctInputFlag) {
-      await this.myArtist.saveStage(myStage);
     }
     if (tempShape != null) {
       board.add(tempShape);
       this.shapesHolder.push(tempShape);
     }
-    // this.reDraw(board);
-  }
-  reDraw(board: Layer) {
-    board.removeChildren();
-    // board.add(transformer);
-    let i = 0;
-    for (; i < this.shapesHolder.length; i++) {
-      board.add(this.shapesHolder[i]);
+    if (correctInputFlag) {
+      console.log('Will update stages');
+      await this.myArtist.saveStage(myStage);
     }
-    board.draw();
   }
   // ------------ Separator ------------
 }

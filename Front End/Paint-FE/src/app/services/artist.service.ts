@@ -63,28 +63,31 @@ export class ArtistService {
     );
   }
 
-  move(myStage: Stage) {
+  async move(myStage: Stage) {
     let i = 0;
     let object!: Stage | Shape;
     let thisExtender = this;
     console.log('in move');
     myStage.listening(true);
-    myStage.on('click touchdown', function (e) {
+    await myStage.on('click touchdown', async function (e) {
       i++;
       object = e.target;
       if (i <= 1) {
         myStage.listening(true);
         myStage.container().style.cursor = 'move';
         object.setAttr('draggable', true);
-        myStage.on('mouseup', function (e) {
+        await myStage.on('mouseup', async function (e) {
+          i++;
           myStage.container().style.cursor = 'default';
           object.setAttr('draggable', false);
+          if (i == 2) await thisExtender.backEndCaller.sendStage(myStage);
         });
         thisExtender.sharedService.setClickedButtonFalse(0);
       } else {
         if (!thisExtender.sharedService.getIsSelected()) {
           myStage.listening(false);
         }
+        // thisExtender.backEndCaller.sendStage(myStage);
       }
     });
   }
@@ -250,5 +253,9 @@ export class ArtistService {
 
   async redoStage() {
     return await this.backEndCaller.redo();
+  }
+
+  async refreshStage() {
+    return await this.backEndCaller.refresh();
   }
 }

@@ -57,5 +57,17 @@ export class PaintingBoardComponent implements OnInit {
     this.board.add(this.transformer);
     this.myStage.add(this.board);
     this.sharedService.setSharedStage(this.myStage);
+    this.myAtelier.requestAnUpdate(
+      this.myStage,
+      this.board,
+      'refresh',
+      this.transformer
+    );
+    this.myAtelier.requestAnUpdate(
+      this.myStage,
+      this.board,
+      'clear',
+      this.transformer
+    );
   }
 }

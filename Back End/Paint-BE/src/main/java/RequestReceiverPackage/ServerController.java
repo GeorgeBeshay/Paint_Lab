@@ -17,6 +17,14 @@ public class ServerController {
 	@Autowired
 	private ServerCore myServerCore = ServerCore.getServerCoreInstance();
 	
+	@PostMapping(value = {"/refreshSession/"})
+	public void refreshSession() {
+		System.out.println("------------------------------------------------");
+		System.out.println("Front End Server Requested to refresh the session " + 
+				"\nBack End Server is refreshing the session \n") ;
+		 this.myServerCore.refreshSession();
+	}
+	
 	@PostMapping(value = {"/shapeCreation/{shapeName}"})
 	public Shape createShape(@PathVariable String shapeName) {
 		Shape shapeToBeReturned = myServerCore.createShapeCore(shapeName);
@@ -32,7 +40,6 @@ public class ServerController {
 		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to update session stages:" + stage + 
 				"\nBack End Server updated session stages: \n");
-//		return stage;
 	}
 	
 	@PostMapping(value = {"/loadSession/"})

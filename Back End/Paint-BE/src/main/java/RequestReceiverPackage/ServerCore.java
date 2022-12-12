@@ -61,24 +61,7 @@ public class ServerCore {
 		return null;
 	}
 	
-//	public void updateObj (Object stage) {
-//		try {
-//			this.dbRepresentative.save("testing");
-//		} catch (IOException e) {
-//			System.out.println("Error in updateObj Method.");
-//			e.printStackTrace();
-//		}
-//	}
-	
-//	public Object getObj () {
-//		try {
-//			return this.dbRepresentative.load("testing");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-
+	public void refreshSession() {
+		this.dbRepresentative.refreshSession();
+	}
 }
