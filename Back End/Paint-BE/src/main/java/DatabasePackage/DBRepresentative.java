@@ -55,19 +55,20 @@ public class DBRepresentative implements DBRepresentativeI{
 		if(this.undoSessionStages.size() > 0) {
 			this.redoSessionStages.push(this.currentSessionStage);
 			this.currentSessionStage = this.undoSessionStages.pop();
-			return (Object)this.currentSessionStage;
+		} else {
+			System.out.println("User Error: No Stages To Undo.");
 		}
-		return null;
+		return this.currentSessionStage;
 	}
 	
 	public Object redo() {
 		if(this.redoSessionStages.size() > 0) {
 			this.undoSessionStages.push(this.currentSessionStage);
 			this.currentSessionStage = this.redoSessionStages.pop();
-			return (Object)this.currentSessionStage;
+		} else {
+			System.out.println("User Error: No Stages To Redo.");
 		}
-		System.out.println("No Stages To Redo.");
-		return null;
+		return this.currentSessionStage;
 	}
 	
 	public void save(String fileName) throws IOException {

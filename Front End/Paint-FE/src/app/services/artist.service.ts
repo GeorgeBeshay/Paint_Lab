@@ -63,68 +63,61 @@ export class ArtistService {
     );
   }
 
-  freeHand(myStage: Stage , board: Layer){
+  async freeHand(myStage: Stage, board: Layer) {
     let i = 0;
     let isPaint = false;
     let drawLine: any;
     let color = this.sharedService.getColor();
     let thisExtender = this;
     myStage.listening(true);
-        myStage.on('mousedown', function (e) {
-          i++;
-          if(i <= 1){
-            thisExtender.sharedService.setClickedButtonFalse(4);
-          isPaint = true;
-          let pos = myStage.getPointerPosition();
-          if(pos == null){
-            return;
-          }
-          drawLine = new Konva.Line({
-            stroke: color,
-            strokeWidth: 5,
-            lineCap: 'round',
-            lineJoin: 'round',          
-            points: [pos.x, pos.y, pos.x, pos.y],
-            });
-            board.add(drawLine);
-          }
-          });
-    
-          myStage.on('mousemove', function (e) {
-            if(i <= 1){
-              if (!isPaint) {
-                return;
-              }
-            // prevent scrolling on touch devices
-            e.evt.preventDefault();
-    
-            let pos = myStage.getPointerPosition();
-            if(pos == null){
-              return;
-            }
-            var newPoints = drawLine.points().concat([pos.x, pos.y]);
-            drawLine.points(newPoints);
-            }
-            
-          });
-          myStage.on('mouseup', function () {
-            if(i <= 1){
-              console.log("i = ",i)
-            isPaint = false;
-            console.log("mouse up hereeeee")
-            console.log(isPaint);
-            myStage.listening(false);
-            return;
-          }
-            
-          });
+    await myStage.on('mousedown', async function (e) {
+      i++;
+      if (i <= 1) {
+        thisExtender.sharedService.setClickedButtonFalse(4);
+        isPaint = true;
+        let pos = myStage.getPointerPosition();
+        if (pos == null) {
+          return;
+        }
+        drawLine = new Konva.Line({
+          stroke: color,
+          strokeWidth: thisExtender.sharedService.getBrushWidth(),
+          lineCap: 'round',
+          lineJoin: 'round',
+          points: [pos.x, pos.y, pos.x, pos.y],
+        });
+        board.add(drawLine);
+      }
+    });
+    await myStage.on('mousemove', async function (e) {
+      if (i <= 1) {
+        if (!isPaint) {
+          return;
+        }
+        // prevent scrolling on touch devices
+        e.evt.preventDefault();
+        let pos = myStage.getPointerPosition();
+        if (pos == null) {
+          return;
+        }
+        var newPoints = drawLine.points().concat([pos.x, pos.y]);
+        drawLine.points(newPoints);
+      }
+    });
+    await myStage.on('mouseup', async function () {
+      if (i <= 1) {
+        isPaint = false;
+        myStage.listening(false);
+        await thisExtender.saveStage(myStage);
+        return;
+      }
+    });
   }
 
   async move(myStage: Stage) {
     let i = 0;
     let object!: Stage | Shape;
     let thisExtender = this;
-    console.log('in move');
     myStage.listening(true);
     await myStage.on('click touchdown', async function (e) {
       i++;
@@ -137,7 +130,7 @@ export class ArtistService {
           i++;
           myStage.container().style.cursor = 'default';
           object.setAttr('draggable', false);
-          if (i == 2) await thisExtender.backEndCaller.sendStage(myStage);
+          if (i == 2) await thisExtender.saveStage(myStage);
         });
         thisExtender.sharedService.setClickedButtonFalse(0);
       } else {
@@ -164,7 +157,7 @@ export class ArtistService {
       } else {
         myStage.listening(true);
         object.setAttr('fill', color);
-        await thisExtender.backEndCaller.sendStage(myStage);
+        await thisExtender.saveStage(myStage);
       }
     });
   }
@@ -195,7 +188,7 @@ export class ArtistService {
               scaleY: 1,
             });
           }
-          await thisExtender.backEndCaller.sendStage(myStage);
+          await thisExtender.saveStage(myStage);
         });
         console.log('resize attr after: ', object.getAttrs());
       } else {
@@ -289,7 +282,7 @@ export class ArtistService {
           );
         }
         board.add(objectClone);
-        await thisExtender.backEndCaller.sendStage(myStage);
+        await thisExtender.saveStage(myStage);
       }
     });
   }
@@ -320,7 +313,7 @@ export class ArtistService {
               scaleY: 1,
             });
             if (j == 1) {
-              await thisExtender.backEndCaller.sendStage(myStage);
+              await thisExtender.saveStage(myStage);
             }
           });
         } else {
@@ -329,9 +322,8 @@ export class ArtistService {
         }
         await object.on('dragend', async function (e) {
           i++;
-          console.log(i);
           object.setAttr('draggable', false);
-          if (i == 1) await thisExtender.backEndCaller.sendStage(myStage);
+          if (i == 1) await thisExtender.saveStage(myStage);
           object.off('click');
         });
       });
@@ -342,12 +334,7 @@ export class ArtistService {
     }
   }
 
-  async erase(
-    myStage: Stage,
-    board: Layer,
-    shapesHolder: any[],
-    redoShapesHolder: any[]
-  ) {
+  async erase(myStage: Stage, board: Layer) {
     let i = 0;
     myStage.listening(true);
     let thisExtender = this;
@@ -355,8 +342,6 @@ export class ArtistService {
       thisExtender.sharedService.setClickedButtonFalse(3);
       i++;
       let object = e.target;
-      shapesHolder.splice(<any>object);
-      redoShapesHolder.push(object);
       if (i > 1) {
         if (!thisExtender.sharedService.getIsSelected()) {
           myStage.listening(false);
@@ -364,32 +349,38 @@ export class ArtistService {
       } else {
         myStage.listening(true);
         object.remove();
-        await thisExtender.backEndCaller.sendStage(myStage);
+        await thisExtender.saveStage(myStage);
       }
     });
   }
 
   async save() {
+    console.log('<< Session Save >> is requested ');
     return await this.backEndCaller.save();
   }
 
   async load() {
+    console.log('<< Session Load >> is requested ');
     return await this.backEndCaller.load();
   }
 
   async saveStage(myStage: Stage) {
+    console.log('<< Stage Update >> is requested ');
     return await this.backEndCaller.sendStage(myStage);
   }
 
   async undoStage() {
+    console.log('<< Stage Undo >> is requested ');
     return await this.backEndCaller.undo();
   }
 
   async redoStage() {
+    console.log('<< Stage Redo >> is requested ');
     return await this.backEndCaller.redo();
   }
 
   async refreshStage() {
+    console.log('<< Stage Refresh >> is requested ');
     return await this.backEndCaller.refresh();
   }
 }

@@ -9,18 +9,13 @@ import { Stage } from 'konva/lib/Stage';
 })
 export class AtelierService {
   // ------------ Separator ------------
-  private shapesHolder: any[] = [];
-  private redoShapesHolder: any[] = [];
-  // ------------ Separator ------------
   constructor(private myArtist: ArtistService) {}
   // ------------ Separator ------------
   async requestAnUpdate(
     myStage: Stage,
     board: Layer,
-    request: string | undefined,
-    transformer: any
+    request: string | undefined
   ) {
-    console.log(myStage);
     let tempShape: any = null;
     let correctInputFlag = false;
     switch (request) {
@@ -37,7 +32,6 @@ export class AtelierService {
       case 'circle': {
         correctInputFlag = true;
         tempShape = await this.myArtist.drawCirc();
-        console.log('Created a circle');
         break;
       }
       case 'line': {
@@ -66,14 +60,12 @@ export class AtelierService {
         break;
       }
       case 'brush': {
-        this.myArtist.freeHand(myStage, board);
+        await this.myArtist.freeHand(myStage, board);
         break;
       }
       case 'clear': {
         correctInputFlag = true;
         board.removeChildren();
-        this.shapesHolder = [];
-        this.redoShapesHolder = [];
         break;
       }
       case 'move': {
@@ -97,12 +89,7 @@ export class AtelierService {
         break;
       }
       case 'eraser': {
-        await this.myArtist.erase(
-          myStage,
-          board,
-          this.shapesHolder,
-          this.redoShapesHolder
-        );
+        await this.myArtist.erase(myStage, board);
         break;
       }
       case 'undo': {
@@ -134,21 +121,24 @@ export class AtelierService {
         break;
       }
       case 'refresh': {
-        await this.myArtist.refreshStage;
+        await this.myArtist.refreshStage();
         break;
       }
       default: {
         break;
       }
     }
+    // ------------ Separator ------------
     if (tempShape != null) {
+      tempShape.setAttrs({
+        stroke: this.myArtist.sharedService.getColor(),
+        strokeWidth: this.myArtist.sharedService.getBrushWidth(),
+      });
       board.add(tempShape);
-      this.shapesHolder.push(tempShape);
     }
     if (correctInputFlag) {
-      console.log('Will update stages');
       await this.myArtist.saveStage(myStage);
     }
+    // ------------ Separator ------------
   }
-  // ------------ Separator ------------
 }

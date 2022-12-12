@@ -10,7 +10,6 @@ import DatabasePackage.*;
 @Service
 public class ServerCore {
 	
-//	private  ShapeFactory shapeFactory = ShapeFactory.getInstance();
 	private ShapesRepresentative shapesRepresentative;
 	private  DBRepresentative dbRepresentative = DBRepresentative.getInstance();
 	private static ServerCore serverCore;

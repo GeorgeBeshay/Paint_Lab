@@ -11,7 +11,7 @@ export class SharedService {
   private sharedStage!: Stage;
   public content: string[] = [];
   private currentBrushWidth: number = 5;
-  private currentColor: string = '#7fffd4';
+  private currentColor: string = '#000080';
   private clickedButtons: boolean[] = [
     false,
     false,
@@ -22,7 +22,6 @@ export class SharedService {
     false,
   ];
   // [move, resize, copy, erase, brush, select, fill]
-
   sendClickEvent(a: string) {
     this.updateButtonsStates(a);
     this.content.push(a);
@@ -43,6 +42,7 @@ export class SharedService {
     this.currentColor = newVal;
   }
   getColor() {
+    console.log(this.currentColor);
     return this.currentColor;
   }
   setClickedButtonFalse(index: number) {
@@ -60,7 +60,6 @@ export class SharedService {
     return this.clickedButtons[5];
   }
   updateButtonsStates(buttonName: string) {
-    console.log(buttonName);
     switch (buttonName) {
       case 'move': {
         this.clickedButtons[0] = true;

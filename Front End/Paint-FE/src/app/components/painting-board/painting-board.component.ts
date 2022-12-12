@@ -24,7 +24,6 @@ export class PaintingBoardComponent implements OnInit {
     this.http
   );
   private myAtelier: AtelierService = new AtelierService(this.myArtist);
-  private transformer: any;
   // ---------- Separator ----------
   constructor(private sharedService: SharedService, private http: HttpClient) {
     this.clickEventSubscription = this.sharedService
@@ -33,13 +32,10 @@ export class PaintingBoardComponent implements OnInit {
         this.myAtelier.requestAnUpdate(
           this.myStage,
           this.board,
-          this.sharedService.content.pop(),
-          this.transformer
+          this.sharedService.content.pop()
         );
         this.myStage = this.sharedService.getSharedStage();
         this.board = this.myStage.getLayers()[0];
-        // console.log('Inside painting board');
-        // console.log(this.myStage);
       });
   }
   // ---------- Separator ----------
@@ -53,21 +49,9 @@ export class PaintingBoardComponent implements OnInit {
       });
     }
     this.board = new Konva.Layer();
-    this.transformer = new Konva.Transformer();
-    this.board.add(this.transformer);
     this.myStage.add(this.board);
     this.sharedService.setSharedStage(this.myStage);
-    this.myAtelier.requestAnUpdate(
-      this.myStage,
-      this.board,
-      'refresh',
-      this.transformer
-    );
-    this.myAtelier.requestAnUpdate(
-      this.myStage,
-      this.board,
-      'clear',
-      this.transformer
-    );
+    this.myAtelier.requestAnUpdate(this.myStage, this.board, 'refresh');
+    this.myAtelier.requestAnUpdate(this.myStage, this.board, 'clear');
   }
 }

@@ -13,57 +13,53 @@ export class BackEndCallerService {
   async requestShapeFromBE(shapeName: string) {
     return await firstValueFrom(this.http.post(this.url + shapeName, null));
   }
-  async requestShapeCloneFromBE(object:any,shapeName: string){
-    return await firstValueFrom(this.http.post(`http://localhost:${this.port}/callBackEndServer/shapeClone/`+ shapeName, object));
+  async requestShapeCloneFromBE(object: any, shapeName: string) {
+    return await firstValueFrom(
+      this.http.post(
+        `http://localhost:${this.port}/callBackEndServer/shapeClone/` +
+          shapeName,
+        object
+      )
+    );
   }
 
   async sendStage(stage: any) {
-    console.log('In sendStage in backEndCaller');
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
         `http://localhost:${this.port}/callBackEndServer/saveStage/`,
         stage
       )
     );
-    console.log('After sendStage request');
   }
 
   async undo() {
-    console.log('In undo request in backEndCaller');
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
         `http://localhost:${this.port}/callBackEndServer/undo/`,
         null
       )
     );
-    console.log(dataToBeReturned);
-    console.log('After undo request');
     return dataToBeReturned;
   }
 
   async redo() {
-    console.log('In redo request in backEndCaller');
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
         `http://localhost:${this.port}/callBackEndServer/redo/`,
         null
       )
     );
-    console.log(dataToBeReturned);
-    console.log('After redo request');
     return dataToBeReturned;
   }
 
   async save() {
-    console.log('In save request in backEndCaller');
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
         `http://localhost:${this.port}/callBackEndServer/saveSession/`,
         null
       )
     );
-    console.log(dataToBeReturned);
-    console.log('After save request');
+    console.log('Session has been saved successfully.');
     return dataToBeReturned;
   }
 
@@ -74,7 +70,7 @@ export class BackEndCallerService {
         null
       )
     );
-    console.log(dataToBeReturned);
+    console.log('Session has been loaded successfully.');
     return dataToBeReturned;
   }
 
