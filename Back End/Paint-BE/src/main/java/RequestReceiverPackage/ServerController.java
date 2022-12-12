@@ -26,21 +26,48 @@ public class ServerController {
 		return shapeToBeReturned;
 	}
 	
-	@PostMapping(value = {"/save/"})
-	public Object saveStage(@RequestBody Object stage) {
-		myServerCore.updateObj(stage);
+	@PostMapping(value = {"/saveStage/"})
+	public void saveStage(@RequestBody Object stage) {
+		myServerCore.updateStages(stage);
 		System.out.println("------------------------------------------------");
-		System.out.println("Front End Server Requested to save:" + stage + 
-				"\nBack End Server saved: \n");
-		return stage;
+		System.out.println("Front End Server Requested to update session stages:" + stage + 
+				"\nBack End Server updated session stages: \n");
+//		return stage;
 	}
 	
-	@PostMapping(value = {"/load/"})
-	public Object loadStage() {
+	@PostMapping(value = {"/loadSession/"})
+	public Object loadSession() {
+		Object tempStage = myServerCore.load();
 		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to load:" + 
-				"\nBack End Server loaded: \n" + myServerCore.getObj());
-		return myServerCore.getObj();
+				"\nBack End Server loaded: \n" + tempStage);
+		return tempStage;
+	}
+	
+	@PostMapping(value = {"/saveSession/"})
+	public void saveSession() {
+		myServerCore.save();
+		System.out.println("------------------------------------------------");
+		System.out.println("Front End Server Requested to save session " + 
+				"\nBack End Server saved the session: \n");
+	}
+	
+	@PostMapping(value = {"/undo/"})
+	public Object undoStage() {
+		Object tempStage = myServerCore.undo();
+		System.out.println("------------------------------------------------");
+		System.out.println("Front End Server Requested to undo:" + 
+				"\nBack End Server did the undo: \n" + tempStage);
+		return tempStage;
+	}
+	
+	@PostMapping(value = {"/redo/"})
+	public Object redoStage() {
+		Object tempStage = myServerCore.redo();
+		System.out.println("------------------------------------------------");
+		System.out.println("Front End Server Requested to redo:" + 
+				"\nBack End Server did the redo: \n" + tempStage);
+		return tempStage;
 	}
 
 }

@@ -14,23 +14,62 @@ export class BackEndCallerService {
     return await firstValueFrom(this.http.post(this.url + shapeName, null));
   }
 
-  async sendStage(board: any) {
-    console.log('In save in backEndCaller');
+  async sendStage(stage: any) {
+    console.log('In sendStage in backEndCaller');
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
-        `http://localhost:${this.port}/callBackEndServer/save/`,
-        board
+        `http://localhost:${this.port}/callBackEndServer/saveStage/`,
+        stage
       )
     );
-    console.log('After request');
+    console.log('After sendStage request');
+    // console.log(dataToBeReturned);
+    // return dataToBeReturned;
+  }
+
+  async undo() {
+    console.log('In undo request in backEndCaller');
+    let dataToBeReturned = await firstValueFrom(
+      this.http.post(
+        `http://localhost:${this.port}/callBackEndServer/undo/`,
+        null
+      )
+    );
     console.log(dataToBeReturned);
+    console.log('After undo request');
     return dataToBeReturned;
   }
 
-  async getStage() {
+  async redo() {
+    console.log('In redo request in backEndCaller');
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
-        `http://localhost:${this.port}/callBackEndServer/load/`,
+        `http://localhost:${this.port}/callBackEndServer/redo/`,
+        null
+      )
+    );
+    console.log(dataToBeReturned);
+    console.log('After redo request');
+    return dataToBeReturned;
+  }
+
+  async save() {
+    console.log('In save request in backEndCaller');
+    let dataToBeReturned = await firstValueFrom(
+      this.http.post(
+        `http://localhost:${this.port}/callBackEndServer/saveSession/`,
+        null
+      )
+    );
+    console.log(dataToBeReturned);
+    console.log('After save request');
+    return dataToBeReturned;
+  }
+
+  async load() {
+    let dataToBeReturned = await firstValueFrom(
+      this.http.post(
+        `http://localhost:${this.port}/callBackEndServer/loadSession/`,
         null
       )
     );
