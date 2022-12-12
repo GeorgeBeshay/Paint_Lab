@@ -22,6 +22,13 @@ public class ServerCore {
 		return shapeToReturn;
 	}
 	
+	public Shape createShapeCloneCore(Shape shape) {
+		Shape clone=shape.clone();
+		clone.setX(100);
+		clone.setY(100);
+		return clone;	
+	}
+	
 	public static ServerCore getServerCoreInstance() {
 		if(ServerCore.serverCore == null) 
 			serverCore = new ServerCore();

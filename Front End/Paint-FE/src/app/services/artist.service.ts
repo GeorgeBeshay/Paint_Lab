@@ -149,11 +149,11 @@ export class ArtistService {
     });
   }
 
-  copy(myStage: Stage, board: Layer) {
+  async copy(myStage: Stage, board: Layer) {
     let i = 0;
     myStage.listening(true);
     let thisExtender = this;
-    myStage.on('click', function (e) {
+    await myStage.on('click', async function (e) {
       thisExtender.sharedService.setClickedButtonFalse(2);
       i++;
       let object = e.target;
@@ -163,9 +163,22 @@ export class ArtistService {
         }
       } else {
         myStage.listening(true);
-        let objectClone = object.clone();
-        objectClone.setAttr('x', 100);
-        objectClone.setAttr('y', 100);
+        let objectClone:any;
+        if(object.getClassName()==="Rect"){
+        objectClone = new Konva.Rect(await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Rect"));
+        }else if(object.getClassName()==="Circle"){
+          objectClone = new Konva.Circle(await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Circle"));
+        }else if(object.getClassName()==="RegularPolygon" && object.getAttr("sides")==3){
+          objectClone = new Konva.RegularPolygon(<any>await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Triangle"));
+        }else if(object.getClassName()==="RegularPolygon" && object.getAttr("sides")==5){
+          objectClone = new Konva.RegularPolygon(<any>await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Pentagon"));
+        }else if(object.getClassName()==="RegularPolygon" && object.getAttr("sides")==6){
+          objectClone = new Konva.RegularPolygon(<any>await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Hexagon"));
+        }else if(object.getClassName()==="Ellipse"){
+          objectClone = new Konva.Ellipse(<any>await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Ellipse"));
+        }else if(object.getClassName()==="Line"){
+          objectClone = new Konva.Line(await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Line"));
+        }
         board.add(objectClone);
       }
     });

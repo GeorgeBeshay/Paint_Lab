@@ -1,5 +1,7 @@
 package RequestReceiverPackage;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,6 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import ShapesPackage.*;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -31,6 +38,47 @@ public class ServerController {
 		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested a " + shapeName + 
 				"\nBack End Server is Sending: \n" + shapeToBeReturned.toString());
+		return shapeToBeReturned;
+	}
+	
+	@PostMapping(value = {"/shapeClone/{shapeName}"})
+	public Object createShapeClone(@RequestBody Object shape, @PathVariable String shapeName) {
+		Shape shapeToBeReturned=null;
+		JSONParser parser= new JSONParser();
+			try {
+				JSONObject shape3 = (JSONObject) parser.parse((String)shape);
+				shape3=(JSONObject) shape3.get("attrs");
+				ObjectMapper mapper=new ObjectMapper();
+				Shape shape4 = null;
+					try {
+						if(shapeName.equalsIgnoreCase("Rect")) {
+							shape4 = mapper.readValue(shape3.toJSONString(), Rectangle.class);
+						}else if(shapeName.equalsIgnoreCase("Circle")) {
+							shape4 = mapper.readValue(shape3.toJSONString(), Circle.class);	
+						}else if(shapeName.equalsIgnoreCase("Triangle")) {
+							shape4 = mapper.readValue(shape3.toJSONString(), Triangle.class);	
+						}else if(shapeName.equalsIgnoreCase("Pentagon")) {
+							shape4 = mapper.readValue(shape3.toJSONString(), Pentagon.class);	
+						}else if(shapeName.equalsIgnoreCase("Hexagon")) {
+							shape4 = mapper.readValue(shape3.toJSONString(), Hexagon.class);	
+						}else if(shapeName.equalsIgnoreCase("Ellipse")) {
+							shape4 = mapper.readValue(shape3.toJSONString(), Ellipse.class);	
+						}else if(shapeName.equalsIgnoreCase("Line")) {
+							shape4 = mapper.readValue(shape3.toJSONString(), Line.class);
+							}
+					} catch (JsonMappingException e) {
+						e.printStackTrace();
+					} catch (JsonProcessingException e) {
+						e.printStackTrace();
+					}
+				    shapeToBeReturned = myServerCore.createShapeCloneCore(shape4);
+			} catch (org.json.simple.parser.ParseException e1) {
+				e1.printStackTrace();
+			}
+			
+		System.out.println("------------------------------------------------");
+		System.out.println("Front End Server Requested a clone " + 
+				"\nBack End Server is Sending: \n" );
 		return shapeToBeReturned;
 	}
 	

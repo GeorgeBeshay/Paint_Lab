@@ -8,6 +8,7 @@ public abstract class Shape implements Cloneable{
 	private String id;
 	private double strokeWidth;
 	private String stroke;
+	private String fill;
 	
 	public Shape() {
 		this.x = 150;
@@ -25,6 +26,7 @@ public abstract class Shape implements Cloneable{
 		this.id = shape.getId();
 		this.strokeWidth = shape.getStrokeWidth();
 		this.stroke = shape.getStroke();
+		this.fill=shape.getFill();
 	}
 	
 	public abstract void draw();
@@ -84,6 +86,14 @@ public abstract class Shape implements Cloneable{
 
 	public void setStroke(String stroke) {
 		this.stroke = stroke;
+	}
+
+	public String getFill() {
+		return fill;
+	}
+
+	public void setFill(String fill) {
+		this.fill = fill;
 	}
 	
 	

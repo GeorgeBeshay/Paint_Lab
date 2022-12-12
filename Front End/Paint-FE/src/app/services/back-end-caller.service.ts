@@ -13,6 +13,9 @@ export class BackEndCallerService {
   async requestShapeFromBE(shapeName: string) {
     return await firstValueFrom(this.http.post(this.url + shapeName, null));
   }
+  async requestShapeCloneFromBE(object:any,shapeName: string){
+    return await firstValueFrom(this.http.post(`http://localhost:${this.port}/callBackEndServer/shapeClone/`+ shapeName, object));
+  }
 
   async sendStage(stage: any) {
     console.log('In sendStage in backEndCaller');

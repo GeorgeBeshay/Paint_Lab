@@ -14,7 +14,7 @@ public class Circle extends Shape {
 	}
 	
 	public void draw() {
-		this.setRadius(10);
+		this.setRadius(40);
 	}
 
 	@Override
