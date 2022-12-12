@@ -192,22 +192,23 @@ export class ArtistService {
     let thisExtender = this;
     if (this.sharedService.getIsSelected()) {
       myStage.listening(true);
-      let i = 0;
+      let i = 0 , j =0;
       await myStage.on('click touchdown', async function (e) {
-        i = 0;
+        i = 0; j = 0;
         object = e.target;
         object.setAttr('draggable', true);
         if (object !== myStage && thisExtender.sharedService.getIsSelected()) {
           board.add(transformer);
           transformer.nodes([object]);
           await object.on('transformend', async function () {
+            j++;
             object.setAttrs({
               width: object.width() * object.scaleX(),
               height: object.height() * object.scaleY(),
               scaleX: 1,
               scaleY: 1,
             });
-            await thisExtender.backEndCaller.sendStage(myStage);
+            if( j == 1){await thisExtender.backEndCaller.sendStage(myStage);}
           });
         } else {
           transformer.nodes([]);
