@@ -65,6 +65,10 @@ export class AtelierService {
         tempShape = await this.myArtist.drawEllipse();
         break;
       }
+      case 'brush': {
+        this.myArtist.freeHand(myStage, board);
+        break;
+      }
       case 'clear': {
         correctInputFlag = true;
         board.removeChildren();

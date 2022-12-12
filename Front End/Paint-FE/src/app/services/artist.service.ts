@@ -63,6 +63,63 @@ export class ArtistService {
     );
   }
 
+  freeHand(myStage: Stage , board: Layer){
+    let i = 0;
+    let isPaint = false;
+    let drawLine: any;
+    let color = this.sharedService.getColor();
+    let thisExtender = this;
+    myStage.listening(true);
+        myStage.on('mousedown', function (e) {
+          i++;
+          if(i <= 1){
+            thisExtender.sharedService.setClickedButtonFalse(4);
+          isPaint = true;
+          let pos = myStage.getPointerPosition();
+          if(pos == null){
+            return;
+          }
+          drawLine = new Konva.Line({
+            stroke: color,
+            strokeWidth: 5,
+            lineCap: 'round',
+            lineJoin: 'round',          
+            points: [pos.x, pos.y, pos.x, pos.y],
+            });
+            board.add(drawLine);
+          }
+          });
+    
+          myStage.on('mousemove', function (e) {
+            if(i <= 1){
+              if (!isPaint) {
+                return;
+              }
+            // prevent scrolling on touch devices
+            e.evt.preventDefault();
+    
+            let pos = myStage.getPointerPosition();
+            if(pos == null){
+              return;
+            }
+            var newPoints = drawLine.points().concat([pos.x, pos.y]);
+            drawLine.points(newPoints);
+            }
+            
+          });
+          myStage.on('mouseup', function () {
+            if(i <= 1){
+              console.log("i = ",i)
+            isPaint = false;
+            console.log("mouse up hereeeee")
+            console.log(isPaint);
+            myStage.listening(false);
+            return;
+          }
+            
+          });
+  }
+
   async move(myStage: Stage) {
     let i = 0;
     let object!: Stage | Shape;

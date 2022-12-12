@@ -63,6 +63,7 @@
         mat-fab
         color=""
         title="Brush"
+        (click)="clickOn('brush')"
         [ngClass]="{
           clickedButton: this.getSharedService().getClickedButtons()[4] == true
         }"
