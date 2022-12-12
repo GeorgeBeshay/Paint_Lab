@@ -9,6 +9,9 @@ public abstract class Shape implements Cloneable{
 	private double strokeWidth;
 	private String stroke;
 	private String fill;
+	private double rotation;
+	private double skewX;
+	private double skeyY;
 	
 	public Shape() {
 		this.x = 150;
@@ -17,6 +20,7 @@ public abstract class Shape implements Cloneable{
 		this.stroke = "black";
 		this.strokeWidth = 5;
 		this.id = "1";
+//		this.rotation = 0;
 	}
 	
 	public Shape(Shape shape) {
@@ -27,6 +31,9 @@ public abstract class Shape implements Cloneable{
 		this.strokeWidth = shape.getStrokeWidth();
 		this.stroke = shape.getStroke();
 		this.fill=shape.getFill();
+		this.rotation = shape.getRotation();
+		this.skewX = shape.getSkewX();
+		this.skeyY = shape.getSkeyY();
 	}
 	
 	public abstract void draw();
@@ -95,6 +102,31 @@ public abstract class Shape implements Cloneable{
 	public void setFill(String fill) {
 		this.fill = fill;
 	}
+
+	public double getRotation() {
+		return rotation;
+	}
+
+	public void setRotation(double rotation) {
+		this.rotation = rotation;
+	}
+
+	public double getSkewX() {
+		return skewX;
+	}
+
+	public void setSkewX(double skewX) {
+		this.skewX = skewX;
+	}
+
+	public double getSkeyY() {
+		return skeyY;
+	}
+
+	public void setSkeyY(double skeyY) {
+		this.skeyY = skeyY;
+	}
+	
 	
 	
 }

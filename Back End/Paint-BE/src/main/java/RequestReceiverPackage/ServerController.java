@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import ShapesPackage.*;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -43,6 +41,7 @@ public class ServerController {
 	
 	@PostMapping(value = {"/shapeClone/{shapeName}"})
 	public Object createShapeClone(@RequestBody Object shape, @PathVariable String shapeName) {
+		System.out.println(shape.toString());
 		Shape shapeToBeReturned=null;
 		JSONParser parser= new JSONParser();
 			try {
