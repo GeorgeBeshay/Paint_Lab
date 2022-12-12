@@ -23,8 +23,6 @@ export class BackEndCallerService {
       )
     );
     console.log('After sendStage request');
-    // console.log(dataToBeReturned);
-    // return dataToBeReturned;
   }
 
   async undo() {

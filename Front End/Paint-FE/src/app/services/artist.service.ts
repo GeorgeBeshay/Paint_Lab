@@ -87,17 +87,16 @@ export class ArtistService {
         if (!thisExtender.sharedService.getIsSelected()) {
           myStage.listening(false);
         }
-        // thisExtender.backEndCaller.sendStage(myStage);
       }
     });
   }
 
-  color(myStage: Stage) {
+  async color(myStage: Stage) {
     let i = 0;
     myStage.listening(true);
     let color = this.sharedService.getColor();
     let thisExtender = this;
-    myStage.on('click', function (e) {
+    await myStage.on('click', async function (e) {
       thisExtender.sharedService.setClickedButtonFalse(6);
       i++;
       let object = e.target;
@@ -108,18 +107,19 @@ export class ArtistService {
       } else {
         myStage.listening(true);
         object.setAttr('fill', color);
+        await thisExtender.backEndCaller.sendStage(myStage);
       }
     });
   }
 
-  resize(myStage: Stage, board: Layer) {
+  async resize(myStage: Stage, board: Layer) {
     let transformer = new Konva.Transformer();
     board.add(transformer);
     let object!: Stage | Shape;
     let thisExtender = this;
     console.log('in resize');
     myStage.listening(true);
-    myStage.on('click touchdown', function (e) {
+    await myStage.on('click touchdown', async function (e) {
       thisExtender.sharedService.setClickedButtonFalse(1);
       object = e.target;
       if (object.name() === 'line') {
@@ -128,7 +128,7 @@ export class ArtistService {
       if (object !== myStage) {
         myStage.listening(true);
         transformer.nodes([object]);
-        object.on('transformend', function () {
+        await object.on('transformend', async function () {
           if (object.name() === 'line') {
           } else {
             object.setAttrs({
@@ -138,6 +138,7 @@ export class ArtistService {
               scaleY: 1,
             });
           }
+          await thisExtender.backEndCaller.sendStage(myStage);
         });
         console.log('resize attr after: ', object.getAttrs());
       } else {
@@ -170,33 +171,40 @@ export class ArtistService {
     });
   }
 
-  select(myStage: Stage, board: Layer) {
+  async select(myStage: Stage, board: Layer) {
     let transformer = new Konva.Transformer();
     board.add(transformer);
     let object!: Stage | Shape;
     let thisExtender = this;
     if (this.sharedService.getIsSelected()) {
       myStage.listening(true);
-      myStage.on('click touchdown', function (e) {
+      let i = 0;
+      await myStage.on('click touchdown', async function (e) {
+        i = 0;
         object = e.target;
         object.setAttr('draggable', true);
         if (object !== myStage && thisExtender.sharedService.getIsSelected()) {
           board.add(transformer);
           transformer.nodes([object]);
-          object.on('transformend', function () {
+          await object.on('transformend', async function () {
             object.setAttrs({
               width: object.width() * object.scaleX(),
               height: object.height() * object.scaleY(),
               scaleX: 1,
               scaleY: 1,
             });
+            // await thisExtender.backEndCaller.sendStage(myStage);
           });
         } else {
           transformer.nodes([]);
           transformer.remove();
         }
-        myStage.on('mouseup', function (e) {
+        await object.on('mouseup', async function (e) {
+          i++;
+          if (i == 1) await thisExtender.backEndCaller.sendStage(myStage);
+          console.log(i);
           object.setAttr('draggable', false);
+          object.off("mouseup");
         });
       });
     } else {
@@ -233,9 +241,6 @@ export class ArtistService {
   }
 
   async save() {
-    // let dataComing = await this.backEndCaller.sendStage(myStage);
-    // console.log('In save in atrist');
-    // console.log(dataComing);
     return await this.backEndCaller.save();
   }
 

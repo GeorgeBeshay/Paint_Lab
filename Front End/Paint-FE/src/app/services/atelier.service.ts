@@ -73,18 +73,15 @@ export class AtelierService {
         break;
       }
       case 'move': {
-        // correctInputFlag = true;
         await this.myArtist.move(myStage);
         break;
       }
       case 'colorFill': {
-        correctInputFlag = true;
-        this.myArtist.color(myStage);
+        await this.myArtist.color(myStage);
         break;
       }
       case 'resize': {
-        correctInputFlag = true;
-        this.myArtist.resize(myStage, board);
+        await this.myArtist.resize(myStage, board);
         break;
       }
       case 'copy': {
@@ -93,8 +90,7 @@ export class AtelierService {
         break;
       }
       case 'cursor': {
-        correctInputFlag = true;
-        this.myArtist.select(myStage, board);
+        await this.myArtist.select(myStage, board);
         break;
       }
       case 'eraser': {
