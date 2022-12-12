@@ -30,16 +30,19 @@
   justify-content: center;
   align-items: center;
 }
-.H button mat-icon{
+.H button mat-icon {
   position: relative;
 }
-.H button mat-icon::before{
+.H button mat-icon::before {
   content: "";
   position: absolute;
   width: 35px;
   height: 20px;
   background-color: white;
   border-radius: 50%;
+}
+.H button:hover mat-icon::before {
+  background-color: black;
 }
 .toolBarTitle {
   grid-area: 1 / 1 / 2 / 3;
