@@ -85,8 +85,7 @@ export class AtelierService {
         break;
       }
       case 'copy': {
-        correctInputFlag = true;
-        this.myArtist.copy(myStage, board);
+        await this.myArtist.copy(myStage, board);
         break;
       }
       case 'cursor': {

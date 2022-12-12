@@ -180,6 +180,7 @@ export class ArtistService {
           objectClone = new Konva.Line(await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Line"));
         }
         board.add(objectClone);
+        await thisExtender.backEndCaller.sendStage(myStage);
       }
     });
   }
