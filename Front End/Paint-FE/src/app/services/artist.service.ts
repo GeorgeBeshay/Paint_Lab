@@ -163,21 +163,73 @@ export class ArtistService {
         }
       } else {
         myStage.listening(true);
-        let objectClone:any;
-        if(object.getClassName()==="Rect"){
-        objectClone = new Konva.Rect(await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Rect"));
-        }else if(object.getClassName()==="Circle"){
-          objectClone = new Konva.Circle(await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Circle"));
-        }else if(object.getClassName()==="RegularPolygon" && object.getAttr("sides")==3){
-          objectClone = new Konva.RegularPolygon(<any>await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Triangle"));
-        }else if(object.getClassName()==="RegularPolygon" && object.getAttr("sides")==5){
-          objectClone = new Konva.RegularPolygon(<any>await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Pentagon"));
-        }else if(object.getClassName()==="RegularPolygon" && object.getAttr("sides")==6){
-          objectClone = new Konva.RegularPolygon(<any>await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Hexagon"));
-        }else if(object.getClassName()==="Ellipse"){
-          objectClone = new Konva.Ellipse(<any>await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Ellipse"));
-        }else if(object.getClassName()==="Line"){
-          objectClone = new Konva.Line(await thisExtender.backEndCaller.requestShapeCloneFromBE(object,"Line"));
+        let objectClone: any;
+        if (object.getClassName() === 'Rect') {
+          objectClone = new Konva.Rect(
+            await thisExtender.backEndCaller.requestShapeCloneFromBE(
+              object,
+              'Rect'
+            )
+          );
+        } else if (object.getClassName() === 'Circle') {
+          objectClone = new Konva.Circle(
+            await thisExtender.backEndCaller.requestShapeCloneFromBE(
+              object,
+              'Circle'
+            )
+          );
+        } else if (
+          object.getClassName() === 'RegularPolygon' &&
+          object.getAttr('sides') == 3
+        ) {
+          objectClone = new Konva.RegularPolygon(
+            <any>(
+              await thisExtender.backEndCaller.requestShapeCloneFromBE(
+                object,
+                'Triangle'
+              )
+            )
+          );
+        } else if (
+          object.getClassName() === 'RegularPolygon' &&
+          object.getAttr('sides') == 5
+        ) {
+          objectClone = new Konva.RegularPolygon(
+            <any>(
+              await thisExtender.backEndCaller.requestShapeCloneFromBE(
+                object,
+                'Pentagon'
+              )
+            )
+          );
+        } else if (
+          object.getClassName() === 'RegularPolygon' &&
+          object.getAttr('sides') == 6
+        ) {
+          objectClone = new Konva.RegularPolygon(
+            <any>(
+              await thisExtender.backEndCaller.requestShapeCloneFromBE(
+                object,
+                'Hexagon'
+              )
+            )
+          );
+        } else if (object.getClassName() === 'Ellipse') {
+          objectClone = new Konva.Ellipse(
+            <any>(
+              await thisExtender.backEndCaller.requestShapeCloneFromBE(
+                object,
+                'Ellipse'
+              )
+            )
+          );
+        } else if (object.getClassName() === 'Line') {
+          objectClone = new Konva.Line(
+            await thisExtender.backEndCaller.requestShapeCloneFromBE(
+              object,
+              'Line'
+            )
+          );
         }
         board.add(objectClone);
         await thisExtender.backEndCaller.sendStage(myStage);
@@ -192,9 +244,11 @@ export class ArtistService {
     let thisExtender = this;
     if (this.sharedService.getIsSelected()) {
       myStage.listening(true);
-      let i = 0 , j =0;
+      let i = 0,
+        j = 0;
       await myStage.on('click touchdown', async function (e) {
-        i = 0; j = 0;
+        i = 0;
+        j = 0;
         object = e.target;
         object.setAttr('draggable', true);
         if (object !== myStage && thisExtender.sharedService.getIsSelected()) {
@@ -208,7 +262,9 @@ export class ArtistService {
               scaleX: 1,
               scaleY: 1,
             });
-            if( j == 1){await thisExtender.backEndCaller.sendStage(myStage);}
+            if (j == 1) {
+              await thisExtender.backEndCaller.sendStage(myStage);
+            }
           });
         } else {
           transformer.nodes([]);
@@ -229,7 +285,7 @@ export class ArtistService {
     }
   }
 
-  erase(
+  async erase(
     myStage: Stage,
     board: Layer,
     shapesHolder: any[],
@@ -238,7 +294,7 @@ export class ArtistService {
     let i = 0;
     myStage.listening(true);
     let thisExtender = this;
-    myStage.on('click', function (e) {
+    await myStage.on('click', async function (e) {
       thisExtender.sharedService.setClickedButtonFalse(3);
       i++;
       let object = e.target;
@@ -251,6 +307,7 @@ export class ArtistService {
       } else {
         myStage.listening(true);
         object.remove();
+        await thisExtender.backEndCaller.sendStage(myStage);
       }
     });
   }

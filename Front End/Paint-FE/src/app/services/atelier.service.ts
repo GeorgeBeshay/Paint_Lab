@@ -93,8 +93,7 @@ export class AtelierService {
         break;
       }
       case 'eraser': {
-        correctInputFlag = true;
-        this.myArtist.erase(
+        await this.myArtist.erase(
           myStage,
           board,
           this.shapesHolder,
