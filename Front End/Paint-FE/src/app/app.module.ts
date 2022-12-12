@@ -12,10 +12,17 @@ import { OptionsLeftComponent } from './components/options-left/options-left.com
 import { OptionsRightComponent } from './components/options-right/options-right.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  MatButtonToggleModule,
+  MatButtonToggleGroup,
+} from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { KonvaModule } from 'ng2-konva';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -37,6 +44,9 @@ import { HttpClientModule } from '@angular/common/http';
     KonvaModule,
     MatSliderModule,
     HttpClientModule,
+    MatButtonToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

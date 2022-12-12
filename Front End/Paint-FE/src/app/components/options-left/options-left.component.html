@@ -1,8 +1,51 @@
 <div class="optionsLeftHolder">
   <div class="options">
-    <div class="option A">A</div>
-    <div class="option B">B</div>
-    <div class="option C">C</div>
-    <div class="option D">D</div>
+    <div class="option A">
+      <mat-button-toggle-group #test #toggleGroup="matButtonToggleGroup">
+        <mat-button-toggle
+          class="tb 1"
+          #toggleBtn2
+          value="xml"
+          (change)="setSaveFormat(toggleGroup.value)"
+          >XML</mat-button-toggle
+        >
+        <mat-button-toggle
+          class="tb 2"
+          #toggleBtn2
+          value="json"
+          background-color="red"
+          checked="true"
+          (change)="setSaveFormat(toggleGroup.value)"
+          >JSON</mat-button-toggle
+        >
+      </mat-button-toggle-group>
+    </div>
+    <div class="option B">
+      <label for="test">X: </label>
+      <input
+        type="number"
+        value="100"
+        min="1"
+        max="400"
+        #test
+        id="inputX"
+        (change)="setUserX()"
+      />
+    </div>
+    <div class="option C">
+      <label for="test">Y: </label>
+      <input
+        type="number"
+        value="100"
+        min="1"
+        max="500"
+        id="inputY"
+        (change)="setUserY()"
+      />
+    </div>
+    <div class="option D">
+      <label for="test">Path: </label>
+      <input type="text" id="path" (change)="setPath()" />
+    </div>
   </div>
 </div>

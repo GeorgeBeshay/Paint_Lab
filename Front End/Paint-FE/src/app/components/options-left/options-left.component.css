@@ -1,5 +1,5 @@
 .optionsLeftHolder {
-  width: 100%;
+  max-width: 100%;
   height: 100%;
   background-color: #001219;
   padding: 10px;
@@ -19,33 +19,65 @@
   -o-border-radius: 10px;
   border-radius: 10px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(15, 1fr);
   grid-column-gap: 5px;
   grid-row-gap: 5px;
 }
 .option {
-  padding: 5px 10px;
+  padding: 0px 5px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-button {
-  color: white;
-  background-color: #001219;
+.tb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
   box-shadow: 0 4px #999;
-}
-button:hover {
-  background-color: #ae2012;
-}
-button:hover mat-icon {
   color: black;
+  font-family: "Zen Dots", cursive;
+  font-size: 10px;
 }
-button:active {
-  background-color: #9b2226;
+mat-button-toggle:hover {
+  background-color: #474747;
+}
+mat-button-toggle:active {
   box-shadow: 0 1px #666;
   -webkit-transform: translateY(2px);
   -moz-transform: translateY(2px);
   -ms-transform: translateY(2px);
   -o-transform: translateY(2px);
   transform: translateY(2px);
+}
+.A {
+  grid-area: 1 / 1 / 2 / 5;
+}
+.B {
+  grid-area: 1 / 5 / 2 / 8;
+}
+.C {
+  grid-area: 1 / 8 / 2 / 11;
+}
+.D {
+  grid-area: 1 / 11 / 2 / 16;
+}
+.D input {
+  width: 100%;
+}
+.C input,
+.B input {
+  width: 100%;
+  padding: 2px 2px;
+  box-sizing: border-box;
+  outline: none;
+  border: 2px solid rgb(202, 199, 199);
+}
+.C input:focus,
+.B input:focus {
+  border: 2px solid rgb(40, 39, 39);
+}
+label {
+  font-family: "Zen Dots", cursive;
+  padding-inline: 5px;
 }

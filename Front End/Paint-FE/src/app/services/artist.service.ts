@@ -172,14 +172,14 @@ export class ArtistService {
     await myStage.on('click touchdown', async function (e) {
       thisExtender.sharedService.setClickedButtonFalse(1);
       object = e.target;
-      if (object.name() === 'line') {
+      if (object.getAttr('ClassName') === 'Line') {
         transformer.enabledAnchors(['middle-left', 'middle-right']);
       }
       if (object !== myStage) {
         myStage.listening(true);
         transformer.nodes([object]);
         await object.on('transformend', async function () {
-          if (object.name() === 'line') {
+          if (object.getAttr('ClassName') === 'Line') {
           } else {
             object.setAttrs({
               width: object.width() * object.scaleX(),
@@ -300,8 +300,8 @@ export class ArtistService {
         i = 0;
         j = 0;
         object = e.target;
-        object.setAttr('draggable', true);
         if (object !== myStage && thisExtender.sharedService.getIsSelected()) {
+          object.setAttr('draggable', true);
           board.add(transformer);
           transformer.nodes([object]);
           await object.on('transformend', async function () {

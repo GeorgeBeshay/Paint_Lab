@@ -9,6 +9,10 @@ import { Layer } from 'konva/lib/Layer';
 export class SharedService {
   private subject = new Subject<any>();
   private sharedStage!: Stage;
+  private fileFormat!: string;
+  private path!: string;
+  private userX!: number;
+  private userY!: number;
   public content: string[] = [];
   private currentBrushWidth: number = 5;
   private currentColor: string = '#000080';
@@ -21,6 +25,30 @@ export class SharedService {
     false,
     false,
   ];
+  getFileFormat() {
+    return this.fileFormat;
+  }
+  setFileFormat(newFileFormat: string) {
+    this.fileFormat = newFileFormat;
+  }
+  getPath() {
+    return this.path;
+  }
+  setPath(newPath: string) {
+    this.path = newPath;
+  }
+  getUserX() {
+    return this.userX;
+  }
+  setUserX(newUserX: number) {
+    this.userX = newUserX;
+  }
+  getUserY() {
+    return this.userY;
+  }
+  setUserY(newUserY: number) {
+    this.userY = newUserY;
+  }
   // [move, resize, copy, erase, brush, select, fill]
   sendClickEvent(a: string) {
     this.updateButtonsStates(a);

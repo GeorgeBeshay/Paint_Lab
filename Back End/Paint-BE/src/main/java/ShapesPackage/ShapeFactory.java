@@ -1,6 +1,6 @@
 package ShapesPackage;
 
-public class ShapeFactory implements ShapesRepresentative{
+public class ShapeFactory implements ShapesRepresentative {
 	
 	private static ShapeFactory shapeFactory;
 	
