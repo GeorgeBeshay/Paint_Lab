@@ -193,18 +193,18 @@ export class ArtistService {
               scaleX: 1,
               scaleY: 1,
             });
-            // await thisExtender.backEndCaller.sendStage(myStage);
+            await thisExtender.backEndCaller.sendStage(myStage);
           });
         } else {
           transformer.nodes([]);
           transformer.remove();
         }
-        await object.on('mouseup', async function (e) {
+        await object.on('dragend', async function (e) {
           i++;
-          if (i == 1) await thisExtender.backEndCaller.sendStage(myStage);
           console.log(i);
           object.setAttr('draggable', false);
-          object.off("mouseup");
+          if (i == 1) await thisExtender.backEndCaller.sendStage(myStage);
+          object.off('click');
         });
       });
     } else {
