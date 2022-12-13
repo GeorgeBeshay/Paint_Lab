@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { firstValueFrom, Observable } from 'rxjs';
 
 @Injectable({
@@ -52,22 +52,25 @@ export class BackEndCallerService {
     return dataToBeReturned;
   }
 
-  async save() {
+  async save(path: string, json: boolean) {
+    if (path == null) path = 'empty';
+    if (json == null) json = true;
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
-        `http://localhost:${this.port}/callBackEndServer/saveSession/`,
-        null
+        `http://localhost:${this.port}/callBackEndServer/saveSession/${json}`,
+        path
       )
     );
     console.log('Session has been saved successfully.');
     return dataToBeReturned;
   }
 
-  async load() {
+  async load(path: string) {
+    if (path == null) path = 'empty';
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
         `http://localhost:${this.port}/callBackEndServer/loadSession/`,
-        null
+        path
       )
     );
     console.log('Session has been loaded successfully.');

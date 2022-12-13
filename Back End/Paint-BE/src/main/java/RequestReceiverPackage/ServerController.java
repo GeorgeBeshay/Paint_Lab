@@ -90,7 +90,7 @@ public class ServerController {
 	}
 	
 	@PostMapping(value = {"/loadSession/"})
-	public Object loadSession() {
+	public Object loadSession(@RequestBody String loadPath) {
 		Object tempStage = myServerCore.load();
 		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to load:" + 
@@ -98,8 +98,8 @@ public class ServerController {
 		return tempStage;
 	}
 	
-	@PostMapping(value = {"/saveSession/"})
-	public void saveSession() {
+	@PostMapping(value = {"/saveSession/{jsonFormat}"})
+	public void saveSession(@RequestBody String savePath, @PathVariable boolean jsonFormat) {
 		myServerCore.save();
 		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to save session " + 

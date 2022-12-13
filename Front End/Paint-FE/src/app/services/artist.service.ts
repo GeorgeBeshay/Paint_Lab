@@ -356,12 +356,15 @@ export class ArtistService {
 
   async save() {
     console.log('<< Session Save >> is requested ');
-    return await this.backEndCaller.save();
+    return await this.backEndCaller.save(
+      this.sharedService.getPath(),
+      this.sharedService.getFileFormat() == 'json'
+    );
   }
 
   async load() {
     console.log('<< Session Load >> is requested ');
-    return await this.backEndCaller.load();
+    return await this.backEndCaller.load(this.sharedService.getPath());
   }
 
   async saveStage(myStage: Stage) {

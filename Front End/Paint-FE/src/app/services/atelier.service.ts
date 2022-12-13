@@ -134,6 +134,14 @@ export class AtelierService {
         stroke: this.myArtist.sharedService.getColor(),
         strokeWidth: this.myArtist.sharedService.getBrushWidth(),
       });
+      let tempX = this.myArtist.sharedService.getUserX();
+      let tempY = this.myArtist.sharedService.getUserY();
+      if (tempX >= 1 && tempX <= 900 && tempY >= 1 && tempY <= 400) {
+        tempShape.setAttrs({
+          x: this.myArtist.sharedService.getUserX(),
+          y: this.myArtist.sharedService.getUserY(),
+        });
+      }
       board.add(tempShape);
     }
     if (correctInputFlag) {
