@@ -24,18 +24,18 @@ public class ServerController {
 	
 	@PostMapping(value = {"/refreshSession/"})
 	public void refreshSession() {
-		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to refresh the session " + 
 				"\nBack End Server is refreshing the session \n") ;
+		System.out.println("------------------------------------------------");
 		 this.myServerCore.refreshSession();
 	}
 	
 	@PostMapping(value = {"/shapeCreation/{shapeName}"})
 	public Shape createShape(@PathVariable String shapeName) {
 		Shape shapeToBeReturned = myServerCore.createShapeCore(shapeName);
-		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested a " + shapeName + 
 				"\nBack End Server is Sending: \n" + shapeToBeReturned.toString());
+		System.out.println("------------------------------------------------");
 		return shapeToBeReturned;
 	}
 	
@@ -75,52 +75,52 @@ public class ServerController {
 				e1.printStackTrace();
 			}
 			
-		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested a clone " + 
 				"\nBack End Server is Sending: \n" );
+		System.out.println("------------------------------------------------");
 		return shapeToBeReturned;
 	}
 	
 	@PostMapping(value = {"/saveStage/"})
 	public void saveStage(@RequestBody Object stage) {
 		myServerCore.updateStages(stage);
-		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to update session stages:" + stage + 
 				"\nBack End Server updated session stages: \n");
+		System.out.println("------------------------------------------------");
 	}
 	
 	@PostMapping(value = {"/loadSession/"})
 	public Object loadSession(@RequestBody String loadPath) {
 		Object tempStage = myServerCore.load();
-		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to load:" + 
 				"\nBack End Server loaded: \n" + tempStage);
+		System.out.println("------------------------------------------------");
 		return tempStage;
 	}
 	
 	@PostMapping(value = {"/saveSession/{jsonFormat}"})
 	public void saveSession(@RequestBody String savePath, @PathVariable boolean jsonFormat) {
 		myServerCore.save(jsonFormat);
-		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to save session " + 
 				"\nBack End Server saved the session: \n");
+		System.out.println("------------------------------------------------");
 	}
 	
 	@PostMapping(value = {"/undo/"})
 	public Object undoStage() {
 		Object tempStage = myServerCore.undo();
-		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to undo:" + 
 				"\nBack End Server did the undo: \n" + tempStage);
+		System.out.println("------------------------------------------------");
 		return tempStage;
 	}
 	
 	@PostMapping(value = {"/redo/"})
 	public Object redoStage() {
 		Object tempStage = myServerCore.redo();
-		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to redo:" + 
 				"\nBack End Server did the redo: \n" + tempStage);
+		System.out.println("------------------------------------------------");
 		return tempStage;
 	}
 
