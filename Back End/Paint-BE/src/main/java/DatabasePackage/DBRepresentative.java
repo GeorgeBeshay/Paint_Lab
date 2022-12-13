@@ -1,6 +1,11 @@
 package DatabasePackage;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.json.XML;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -71,9 +76,11 @@ public class DBRepresentative implements DBRepresentativeI{
 		return this.currentSessionStage;
 	}
 	
-	public void save(String fileName) throws IOException {
-		FileWriter fileWriterUNDO = new FileWriter(this.location + fileName + "UNDO.json");
-		FileWriter fileWriterREDO = new FileWriter(this.location + fileName + "REDO.json");
+	public void save(String fileName, boolean jsonFormat) throws IOException {
+		File undo=new File(this.location + fileName + "UNDO.json");
+		File redo=new File(this.location + fileName + "REDO.json");
+		FileWriter fileWriterUNDO = new FileWriter(undo);
+		FileWriter fileWriterREDO = new FileWriter(redo);
 		// ------------------ Separator ------------------
 		fileWriterUNDO.write("[\n");
 		fileWriterUNDO.write(this.currentSessionStage.toJSONString());
@@ -102,6 +109,12 @@ public class DBRepresentative implements DBRepresentativeI{
 		// ------------------ Separator ------------------
 		fileWriterUNDO.close();
 		fileWriterREDO.close();
+		if(!jsonFormat) {
+			xmlSaveLoad xmlsaveload=new xmlSaveLoad();
+			xmlsaveload.xmlSave(fileName, this.location);
+			undo.delete();
+			redo.delete();
+		}
 	}
 	
 	public Object load(String fileName) throws IOException, ParseException {

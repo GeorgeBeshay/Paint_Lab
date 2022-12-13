@@ -100,7 +100,7 @@ public class ServerController {
 	
 	@PostMapping(value = {"/saveSession/{jsonFormat}"})
 	public void saveSession(@RequestBody String savePath, @PathVariable boolean jsonFormat) {
-		myServerCore.save();
+		myServerCore.save(jsonFormat);
 		System.out.println("------------------------------------------------");
 		System.out.println("Front End Server Requested to save session " + 
 				"\nBack End Server saved the session: \n");

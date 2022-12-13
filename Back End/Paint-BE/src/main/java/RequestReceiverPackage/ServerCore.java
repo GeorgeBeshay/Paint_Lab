@@ -49,9 +49,9 @@ public class ServerCore {
 		return this.dbRepresentative.redo();
 	}
 	
-	public void save() {
+	public void save(boolean jsonFormat) {
 		try {
-			this.dbRepresentative.save("testing2");
+			this.dbRepresentative.save("testing2",jsonFormat);
 		} catch (IOException e) {
 			System.out.println("Error in ServerCore >> save()");
 			e.printStackTrace();
