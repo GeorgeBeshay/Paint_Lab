@@ -55,7 +55,7 @@ export class BackEndCallerService {
   }
 
   async save(path: string, json: boolean) {
-    if (path == null) path = 'empty';
+    if (path == null) path = "src\\main\\java\\DatabasePackage\\Database\\untitled";
     if (json == null) json = true;
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
@@ -68,7 +68,7 @@ export class BackEndCallerService {
   }
 
   async load(path: string, json: boolean) {
-    if (path == null) path = 'empty';
+    if (path == null) path = "src\\main\\java\\DatabasePackage\\Database\\untitled";
     if (json == null) json = true;
     let dataToBeReturned = await firstValueFrom(
       this.http.post(

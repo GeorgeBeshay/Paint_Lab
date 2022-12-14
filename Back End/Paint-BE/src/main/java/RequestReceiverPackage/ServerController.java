@@ -94,12 +94,6 @@ public class ServerController {
 	
 	@PostMapping(value = {"/loadSession/{jsonFormat}"})
 	public Object loadSession(@RequestBody String loadPath , @PathVariable boolean jsonFormat) {
-		try {
-			File test =new File(loadPath + "UNDO.json");
-		}catch(Exception e){
-			loadPath = "src\\main\\java\\DatabasePackage\\Database\\";
-			System.out.println("Path not found");
-		}
 		Object tempStage = myServerCore.load(jsonFormat, loadPath);
 		System.out.println("Front End Server Requested to load:" + 
 				"\nBack End Server loaded: \n" + tempStage);
@@ -109,12 +103,6 @@ public class ServerController {
 	
 	@PostMapping(value = {"/saveSession/{jsonFormat}"})
 	public void saveSession(@RequestBody String savePath, @PathVariable boolean jsonFormat) {
-		try {
-			File test =new File(savePath + "UNDO.json");
-		}catch(Exception e){
-			savePath = "src\\main\\java\\DatabasePackage\\Database\\";
-			System.out.println("Path not found");
-		}
 		myServerCore.save(jsonFormat, savePath);
 		System.out.println("Front End Server Requested to save session " + 
 				"\nBack End Server saved the session: \n");
