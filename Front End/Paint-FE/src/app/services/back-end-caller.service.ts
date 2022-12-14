@@ -77,7 +77,6 @@ export class BackEndCallerService {
       )
     );
     console.log('Session has been loaded successfully.');
-    console.log(dataToBeReturned);
     return dataToBeReturned;
   }
 
