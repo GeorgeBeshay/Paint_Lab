@@ -1,6 +1,44 @@
 <div class="RTBholder">
   <div class="tools">
     <div class="toolBarTitle">Options</div>
+    <!-- Separator -->
+    <div class="tool x">
+      <label for="test">X: </label>
+      <input
+        type="number"
+        value="100"
+        min="1"
+        max="1000"
+        #test
+        id="inputX"
+        (change)="setUserX()"
+      />
+    </div>
+    <!-- Separator -->
+    <div class="tool y">
+      <label for="test">Y: </label>
+      <input
+        type="number"
+        value="100"
+        min="1"
+        max="1000"
+        id="inputY"
+        (change)="setUserY()"
+      />
+    </div>
+    <!-- Separator -->
+    <div class="tool undo">
+      <button mat-fab color="" (click)="clickOn('undo')" title="undo">
+        <mat-icon>undo</mat-icon>
+      </button>
+    </div>
+    <!-- Separator -->
+    <div class="tool redo">
+      <button mat-fab color="" (click)="clickOn('redo')" title="redo">
+        <mat-icon>redo</mat-icon>
+      </button>
+    </div>
+    <!-- Separator -->
     <div class="tool move">
       <button
         mat-fab
@@ -14,6 +52,7 @@
         <mat-icon>drag_indicator</mat-icon>
       </button>
     </div>
+    <!-- Separator -->
     <div class="tool resize">
       <button
         mat-fab
@@ -27,6 +66,7 @@
         <mat-icon>aspect_ratio</mat-icon>
       </button>
     </div>
+    <!-- Separator -->
     <div class="tool copy">
       <button
         mat-fab
@@ -40,11 +80,13 @@
         <mat-icon>content_copy</mat-icon>
       </button>
     </div>
+    <!-- Separator -->
     <div class="tool clear">
       <button mat-fab color="" (click)="clickOn('clear')" title="Clear">
         <mat-icon>clear</mat-icon>
       </button>
     </div>
+    <!-- Separator -->
     <div class="tool eraser">
       <button
         mat-fab
@@ -58,6 +100,7 @@
         <mat-icon>auto_fix_off</mat-icon>
       </button>
     </div>
+    <!-- Separator -->
     <div class="tool brush">
       <button
         mat-fab
@@ -71,6 +114,7 @@
         <mat-icon>brush</mat-icon>
       </button>
     </div>
+    <!-- Separator -->
     <div class="brushWidth">
       <mat-slider
         discrete
@@ -83,7 +127,9 @@
         <input matSliderThumb />
       </mat-slider>
     </div>
+    <!-- Separator -->
     <div class="colorsTitle">Color Picker</div>
+    <!-- Separator -->
     <div class="colors">
       <input
         type="color"

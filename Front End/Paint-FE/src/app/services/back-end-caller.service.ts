@@ -8,11 +8,13 @@ import { firstValueFrom, Observable } from 'rxjs';
 export class BackEndCallerService {
   private port = 8081;
   private url = `http://localhost:${this.port}/callBackEndServer/shapeCreation/`;
+
   constructor(private http: HttpClient) {}
 
   async requestShapeFromBE(shapeName: string) {
     return await firstValueFrom(this.http.post(this.url + shapeName, null));
   }
+
   async requestShapeCloneFromBE(object: any, shapeName: string) {
     return await firstValueFrom(
       this.http.post(
@@ -65,11 +67,12 @@ export class BackEndCallerService {
     return dataToBeReturned;
   }
 
-  async load(path: string) {
+  async load(path: string, json: boolean) {
     if (path == null) path = 'empty';
+    if (json == null) json = true;
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
-        `http://localhost:${this.port}/callBackEndServer/loadSession/`,
+        `http://localhost:${this.port}/callBackEndServer/loadSession/${json}`,
         path
       )
     );

@@ -164,18 +164,24 @@ export class ArtistService {
 
   async resize(myStage: Stage, board: Layer) {
     let transformer = new Konva.Transformer();
-    board.add(transformer);
     let object!: Stage | Shape;
     let thisExtender = this;
     console.log('in resize');
     myStage.listening(true);
+    board.add(transformer);
+    let i = 0;
+    let prevObj!: any;
     await myStage.on('click touchdown', async function (e) {
       thisExtender.sharedService.setClickedButtonFalse(1);
       object = e.target;
+      if (i == 0) {
+        prevObj = object;
+      }
+      i++;
       if (object.getAttr('ClassName') === 'Line') {
         transformer.enabledAnchors(['middle-left', 'middle-right']);
       }
-      if (object !== myStage) {
+      if (object !== myStage && prevObj == object) {
         myStage.listening(true);
         transformer.nodes([object]);
         await object.on('transformend', async function () {
@@ -194,6 +200,7 @@ export class ArtistService {
       } else {
         transformer.nodes([]);
         transformer.remove();
+        myStage.listening(false);
         return;
       }
     });
@@ -364,7 +371,10 @@ export class ArtistService {
 
   async load() {
     console.log('<< Session Load >> is requested ');
-    return await this.backEndCaller.load(this.sharedService.getPath());
+    return await this.backEndCaller.load(
+      this.sharedService.getPath(),
+      this.sharedService.getFileFormat() == 'json'
+    );
   }
 
   async saveStage(myStage: Stage) {

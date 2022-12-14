@@ -136,10 +136,10 @@ export class AtelierService {
       });
       let tempX = this.myArtist.sharedService.getUserX();
       let tempY = this.myArtist.sharedService.getUserY();
-      if (tempX >= 1 && tempX <= 900 && tempY >= 1 && tempY <= 400) {
+      if (tempX >= 1 && tempX <= 1000 && tempY >= 1 && tempY <= 500) {
         tempShape.setAttrs({
-          x: this.myArtist.sharedService.getUserX(),
-          y: this.myArtist.sharedService.getUserY(),
+          x: tempX,
+          y: tempY,
         });
       }
       board.add(tempShape);

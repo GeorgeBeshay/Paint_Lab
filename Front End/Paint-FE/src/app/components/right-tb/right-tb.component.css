@@ -20,40 +20,92 @@
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  grid-column-gap: 0px;
+  grid-template-rows: repeat(10, 1fr);
+  grid-column-gap: 5px;
   grid-row-gap: 5px;
 }
 .toolBarTitle {
   grid-area: 1 / 1 / 2 / 3;
 }
+.tool.x {
+  grid-area: 2 / 1 / 3 / 3;
+}
+.tool.y {
+  grid-area: 3 / 1 / 4 / 3;
+}
+.tool.y input,
+.tool.x input {
+  width: 80%;
+}
+.tool label {
+  font-family: "Zen Dots", cursive;
+  padding-inline: 5px;
+}
+.tool input,
+.tool input {
+  width: 100%;
+  padding: 2px 2px;
+  box-sizing: border-box;
+  outline: none;
+  border: 2px solid rgb(202, 199, 199);
+}
+.tool input:focus,
+.tool input:focus {
+  border: 2px solid rgb(40, 39, 39);
+}
+.tool.move {
+  grid-area: 5 / 1 / 6 / 2;
+}
+.tool.resize {
+  grid-area: 5 / 2 / 6 / 3;
+}
+.tool.copy {
+  grid-area: 6 / 1 / 7 / 2;
+}
+.tool.clear {
+  grid-area: 6 / 2 / 7 / 3;
+}
+.tool.eraser {
+  grid-area: 7 / 1 / 8 / 2;
+}
+.tool.brush {
+  grid-area: 7 / 2 / 8 / 3;
+}
 .brushWidth {
-  grid-area: 5 / 1 / 6 / 3;
+  grid-area: 8 / 1 / 9 / 3;
 }
 .colorsTitle {
-  grid-area: 6 / 1 / 7 / 3;
+  grid-area: 9 / 1 / 10 / 3;
 }
 .colors {
-  grid-area: 7 / 1 / 9 / 3;
+  grid-area: 10 / 1 / 11 / 3;
 }
-.brushWidth,
 .tool {
-  padding: 5px 5px;
+  padding: 5px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .brushWidth {
-  padding: 0px 5px;
-  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 80%;
+  height: 100%;
   margin-inline: auto;
   background-color: #7fffd4;
-  border: 5px solid black;
+  border: 2px solid black;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   border-radius: 10px;
+}
+.mat-slider-horizontal {
+  min-width: 100%;
+  margin-top: -25px;
+  height: 20px;
 }
 .toolBarTitle,
 .colorsTitle {
@@ -63,10 +115,14 @@
   font-size: 24px;
   font-family: "Zen Dots", cursive;
 }
+.colorsTitle {
+  font-size: 16px;
+}
 button {
   background-color: #001219;
   cursor: pointer;
   box-shadow: 0 4px #999;
+  padding: 0px;
 }
 button:hover {
   background-color: #ae2012;
@@ -97,37 +153,38 @@ mat-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32.5px;
+  font-size: 25px;
   color: white;
 }
 .colors {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  margin-bottom: 5px;
 }
 #colorPicker {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 100px;
-  height: 100px;
+  width: 80%;
+  height: 100%;
   border: none;
   cursor: pointer;
   background-color: transparent;
 }
 #colorPicker::-webkit-color-swatch {
-  border: 5px solid black;
-  -webkit-border-radius: 25%;
-  -moz-border-radius: 25%;
-  -ms-border-radius: 25%;
-  -o-border-radius: 25%;
-  border-radius: 25%;
+  border: 2px solid black;
+  border-radius: 5%;
+  -webkit-border-radius: 5%;
+  -moz-border-radius: 5%;
+  -ms-border-radius: 5%;
+  -o-border-radius: 5%;
 }
 #colorPicker::-moz-color-swatch {
-  border: 5px solid black;
-  -webkit-border-radius: 25%;
-  -moz-border-radius: 25%;
-  -ms-border-radius: 25%;
-  -o-border-radius: 25%;
-  border-radius: 25%;
+  border: 2px solid black;
+  border-radius: 5%;
+  -webkit-border-radius: 5%;
+  -moz-border-radius: 5%;
+  -ms-border-radius: 5%;
+  -o-border-radius: 5%;
 }

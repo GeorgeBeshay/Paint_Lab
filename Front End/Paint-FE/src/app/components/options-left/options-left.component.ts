@@ -12,14 +12,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class OptionsLeftComponent implements OnInit {
   constructor(private sharedService: SharedService) {}
-  private xInput!: HTMLInputElement;
-  private yInput!: HTMLInputElement;
   private pathInput!: HTMLInputElement;
 
   ngOnInit(): void {
     this.sharedService.setFileFormat('json');
-    this.xInput = document.getElementById('inputX') as HTMLInputElement;
-    this.yInput = document.getElementById('inputY') as HTMLInputElement;
     this.pathInput = document.getElementById('path') as HTMLInputElement;
   }
   setSaveFormat(newFormat: string) {
@@ -27,11 +23,5 @@ export class OptionsLeftComponent implements OnInit {
   }
   setPath() {
     this.sharedService.setPath(this.pathInput.value);
-  }
-  setUserX() {
-    this.sharedService.setUserX(Number(this.xInput.value));
-  }
-  setUserY() {
-    this.sharedService.setUserY(Number(this.yInput.value));
   }
 }

@@ -16,37 +16,38 @@
   grid-row-gap: 5px;
 }
 .optionsLeft {
-  grid-area: 1 / 1 / 2 / 5;
+  grid-area: 1 / 1 / 2 / 6;
 }
 .header {
-  grid-area: 1 / 5 / 2 / 9;
+  grid-area: 1 / 6 / 2 / 12;
 }
 .header h1 {
   font-family: "Dancing Script", cursive;
   text-align: center;
-  font-size: 28px;
+  font-size: 32px;
   width: 100%;
   margin: 5px auto;
-  padding: 15px 10px;
+  padding: 5px;
   background-color: #94d2bd;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
+  letter-spacing: 1.5px;
 }
 .LeftTB {
-  grid-area: 2 / 1 / 12 / 3;
+  grid-area: 2 / 1 / 12 / 2;
 }
 .paintingBoard {
-  grid-area: 2 / 3 / 12 / 11;
+  grid-area: 2 / 2 / 12 / 12;
 }
 .RightTB {
-  grid-area: 2 / 11 / 12 / 13;
+  grid-area: 2 / 12 / 12 / 13;
 }
 .footer {
   grid-area: 12 / 1 / 13 / 13;
 }
 .optionsRight {
-  grid-area: 1 / 9 / 2 / 13;
+  grid-area: 1 / 12 / 2 / 13;
 }

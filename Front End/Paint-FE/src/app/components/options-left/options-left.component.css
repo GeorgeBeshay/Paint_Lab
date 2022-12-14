@@ -20,11 +20,12 @@
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: 1fr;
   grid-column-gap: 5px;
   grid-row-gap: 5px;
 }
 .option {
-  padding: 0px 5px;
+  padding: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,6 +40,12 @@
   font-family: "Zen Dots", cursive;
   font-size: 10px;
 }
+.A {
+  grid-area: 1 / 1 / 2 / 5;
+}
+.D {
+  grid-area: 1 / 5 / 2 / 16;
+}
 mat-button-toggle:hover {
   background-color: #474747;
 }
@@ -50,34 +57,11 @@ mat-button-toggle:active {
   -o-transform: translateY(2px);
   transform: translateY(2px);
 }
-.A {
-  grid-area: 1 / 1 / 2 / 5;
-}
-.B {
-  grid-area: 1 / 5 / 2 / 8;
-}
-.C {
-  grid-area: 1 / 8 / 2 / 11;
-}
-.D {
-  grid-area: 1 / 11 / 2 / 16;
-}
 .D input {
   width: 100%;
-}
-.C input,
-.B input {
-  width: 100%;
-  padding: 2px 2px;
-  box-sizing: border-box;
-  outline: none;
-  border: 2px solid rgb(202, 199, 199);
-}
-.C input:focus,
-.B input:focus {
-  border: 2px solid rgb(40, 39, 39);
+  margin-right: 5px;
 }
 label {
   font-family: "Zen Dots", cursive;
-  padding-inline: 5px;
+  margin-right: 5px;
 }

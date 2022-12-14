@@ -19,18 +19,18 @@
   -o-border-radius: 10px;
   border-radius: 10px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
-  grid-column-gap: 5px;
-  grid-row-gap: 5px;
+  grid-column-gap: 2px;
 }
 .option {
-  padding: 5px 10px;
+  padding-block: 2px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 button {
+  width: fit-content;
   color: white;
   background-color: #001219;
   box-shadow: 0 4px #999;
@@ -49,4 +49,7 @@ button:active {
   -ms-transform: translateY(2px);
   -o-transform: translateY(2px);
   transform: translateY(2px);
+}
+button.mat-focus-indicator{
+  padding: 0px;
 }
