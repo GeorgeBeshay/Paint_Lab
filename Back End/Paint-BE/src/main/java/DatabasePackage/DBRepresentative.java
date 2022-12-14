@@ -32,11 +32,11 @@ public class DBRepresentative implements DBRepresentativeI{
 	public Object redo() {
 		return this.sessionStagesManager.redo();
 	}
-	public void save(String fileName, boolean jsonFormat) throws IOException {
-		this.saveLoadManager.save(this.sessionStagesManager, fileName, jsonFormat);
+	public void save(String filePath, boolean jsonFormat) throws IOException {
+		this.saveLoadManager.save(this.sessionStagesManager, filePath, jsonFormat);
 	}
-	public Object load(String fileName) throws IOException, ParseException {
-		return this.saveLoadManager.load(this.sessionStagesManager, fileName);
+	public Object load(String filePath) throws IOException, ParseException {
+		return this.saveLoadManager.load(this.sessionStagesManager, filePath);
 	}
 
 }

@@ -16,14 +16,13 @@ public class SaveLoadManager implements SaveLoadManager_IF{
 	private String location;
 	
 	public SaveLoadManager() {
-		this.location = "src\\\\main\\\\java\\\\DatabasePackage\\\\Database\\\\";
 	}
 
 	@Override
-	public void save(SessionStagesManager_IF sessionStagesManager, String fileName, boolean jsonFormat)
+	public void save(SessionStagesManager_IF sessionStagesManager, String filePath, boolean jsonFormat)
 			throws IOException {
-		File undo=new File(this.location + fileName + "UNDO.json");
-		File redo=new File(this.location + fileName + "REDO.json");
+		File undo=new File(filePath + "UNDO.json");
+		File redo=new File(filePath + "REDO.json");
 		FileWriter fileWriterUNDO = new FileWriter(undo);
 		FileWriter fileWriterREDO = new FileWriter(redo);
 		// ------------------ Separator ------------------
@@ -31,8 +30,8 @@ public class SaveLoadManager implements SaveLoadManager_IF{
 		Stack<JSONObject> undoSessionStages = sessionStagesManager.getUndoSessionStages();
 		Stack<JSONObject> redoSessionStages = sessionStagesManager.getRedoSessionStages();
 		
-		File undox=new File(this.location + fileName + "UNDOx.json");
-		File redox=new File(this.location + fileName + "REDOx.json");
+		File undox=new File(filePath + "UNDOx.json");
+		File redox=new File(filePath + "REDOx.json");
 		FileWriter fileWriterUNDOx = new FileWriter(undox);
 		FileWriter fileWriterREDOx = new FileWriter(redox);
 		
@@ -93,7 +92,7 @@ public class SaveLoadManager implements SaveLoadManager_IF{
 		if(!jsonFormat) {
 			System.out.println("---else save---");
 			xmlSaveLoad xmlsaveload=new xmlSaveLoad();
-			xmlsaveload.xmlSave(fileName, this.location);
+			xmlsaveload.xmlSave(filePath, this.location);
 			
 		}
 
@@ -102,7 +101,7 @@ public class SaveLoadManager implements SaveLoadManager_IF{
 	}
 
 	@Override
-	public Object load(SessionStagesManager_IF sessionStagesManager, String fileName)
+	public Object load(SessionStagesManager_IF sessionStagesManager, String filePath)
 			throws IOException, ParseException {
 		// ------------------ Separator ------------------
 		Stack<JSONObject> undoSessionStages = sessionStagesManager.getUndoSessionStages();
@@ -113,8 +112,8 @@ public class SaveLoadManager implements SaveLoadManager_IF{
 		redoSessionStages.clear();
 		// ------------------ Separator ------------------
 		
-		FileReader undoSessionStagesReader = new FileReader(this.location + fileName + "UNDO.json");
-		FileReader redoSessionStagesReader = new FileReader(this.location + fileName + "REDO.json");
+		FileReader undoSessionStagesReader = new FileReader(filePath + "UNDO.json");
+		FileReader redoSessionStagesReader = new FileReader(filePath + "REDO.json");
 		JSONArray UNDOdata = (JSONArray) parser.parse(undoSessionStagesReader);
 		JSONArray REDOdata = (JSONArray) parser.parse(redoSessionStagesReader);
 		// ------------------ Separator ------------------

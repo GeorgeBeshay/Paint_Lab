@@ -49,18 +49,18 @@ public class ServerCore {
 		return this.dbRepresentative.redo();
 	}
 	
-	public void save(boolean jsonFormat) {
+	public void save(boolean jsonFormat, String savePath) {
 		try {
-			this.dbRepresentative.save("testing2",jsonFormat);
+			this.dbRepresentative.save(savePath,jsonFormat);
 		} catch (IOException e) {
 			System.out.println("Error in ServerCore >> save()");
 			e.printStackTrace();
 		}
 	}
 	
-	public Object load() {
+	public Object load(boolean jsonFormat, String loadPath) {
 		try {
-			return this.dbRepresentative.load("testing2");
+			return this.dbRepresentative.load(loadPath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {

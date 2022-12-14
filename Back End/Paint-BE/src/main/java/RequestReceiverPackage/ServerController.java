@@ -1,5 +1,7 @@
 package RequestReceiverPackage;
 
+import java.io.File;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ShapesPackage.*;
+import junit.framework.Test;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -89,9 +92,15 @@ public class ServerController {
 		System.out.println("------------------------------------------------");
 	}
 	
-	@PostMapping(value = {"/loadSession/"})
-	public Object loadSession(@RequestBody String loadPath) {
-		Object tempStage = myServerCore.load();
+	@PostMapping(value = {"/loadSession/{jsonFormat}"})
+	public Object loadSession(@RequestBody String loadPath , @PathVariable boolean jsonFormat) {
+		try {
+			File test =new File(loadPath + "UNDO.json");
+		}catch(Exception e){
+			loadPath = "src\\main\\java\\DatabasePackage\\Database\\";
+			System.out.println("Path not found");
+		}
+		Object tempStage = myServerCore.load(jsonFormat, loadPath);
 		System.out.println("Front End Server Requested to load:" + 
 				"\nBack End Server loaded: \n" + tempStage);
 		System.out.println("------------------------------------------------");
@@ -100,7 +109,13 @@ public class ServerController {
 	
 	@PostMapping(value = {"/saveSession/{jsonFormat}"})
 	public void saveSession(@RequestBody String savePath, @PathVariable boolean jsonFormat) {
-		myServerCore.save(jsonFormat);
+		try {
+			File test =new File(savePath + "UNDO.json");
+		}catch(Exception e){
+			savePath = "src\\main\\java\\DatabasePackage\\Database\\";
+			System.out.println("Path not found");
+		}
+		myServerCore.save(jsonFormat, savePath);
 		System.out.println("Front End Server Requested to save session " + 
 				"\nBack End Server saved the session: \n");
 		System.out.println("------------------------------------------------");

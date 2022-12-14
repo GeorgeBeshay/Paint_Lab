@@ -72,7 +72,7 @@ export class BackEndCallerService {
     if (json == null) json = true;
     let dataToBeReturned = await firstValueFrom(
       this.http.post(
-        `http://localhost:${this.port}/callBackEndServer/loadSession/`,
+        `http://localhost:${this.port}/callBackEndServer/loadSession/${json}`,
         path
       )
     );

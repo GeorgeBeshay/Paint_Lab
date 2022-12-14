@@ -13,13 +13,13 @@ import org.json.JSONObject;
 public class xmlSaveLoad {
 
 	
-	public void xmlSave(String fileName,String location) throws IOException {
+	public void xmlSave(String filePath,String location) throws IOException {
 		
-		Path pathUndo = Paths.get(location + fileName + "UNDOx.json");
-		Path pathRedo = Paths.get(location + fileName + "REDOx.json");
+		Path pathUndo = Paths.get(filePath + "UNDOx.json");
+		Path pathRedo = Paths.get(filePath + "REDOx.json");
 		int lengthUndo=(int) Files.lines(pathUndo).count();
 		
-		File xmlUndo=new File(location + fileName + "UNDO.xml");
+		File xmlUndo=new File(filePath + "UNDO.xml");
 		FileWriter fileWriterUNDO = new FileWriter(xmlUndo);
 		
 		for(int i=0;i<lengthUndo;i++) {
@@ -29,7 +29,7 @@ public class xmlSaveLoad {
 			fileWriterUNDO.write("\n");
 		}		
 		int lengthRedo=(int) Files.lines(pathRedo).count();
-		File xmlRedo=new File(location + fileName + "REDO.xml");
+		File xmlRedo=new File(filePath + "REDO.xml");
 		FileWriter fileWriterREDO = new FileWriter(xmlRedo);
 		for(int i=0;i<lengthRedo;i++) {
 			String redoString = Files.readAllLines(pathRedo).get(i);
