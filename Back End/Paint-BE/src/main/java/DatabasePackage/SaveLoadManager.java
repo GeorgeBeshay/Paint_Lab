@@ -30,15 +30,34 @@ public class SaveLoadManager implements SaveLoadManager_IF{
 		JSONObject currentSessionStage = sessionStagesManager.getCurrentSessionStage();
 		Stack<JSONObject> undoSessionStages = sessionStagesManager.getUndoSessionStages();
 		Stack<JSONObject> redoSessionStages = sessionStagesManager.getRedoSessionStages();
+		
+		File undox=new File(this.location + fileName + "UNDOx.json");
+		File redox=new File(this.location + fileName + "REDOx.json");
+		FileWriter fileWriterUNDOx = new FileWriter(undox);
+		FileWriter fileWriterREDOx = new FileWriter(redox);
+		
 		// ------------------ Separator ------------------
 		fileWriterUNDO.write("[\n");
 		fileWriterUNDO.write(currentSessionStage.toJSONString());
+		
+		if(!jsonFormat) {
+		fileWriterUNDOx.write(currentSessionStage.toJSONString());
+		fileWriterUNDOx.write("\n");
+		}
+		
 		if(undoSessionStages.size() > 0)
 			fileWriterUNDO.write("\n, ");
 		else
 			fileWriterUNDO.write("\n");
 		while(undoSessionStages.size() > 0) {
-			fileWriterUNDO.write(undoSessionStages.pop().toJSONString());
+			String jsonString=undoSessionStages.pop().toJSONString();
+			fileWriterUNDO.write(jsonString);
+			
+			if(!jsonFormat) {
+			fileWriterUNDOx.write(jsonString);
+			fileWriterUNDOx.write("\n");
+			}
+			
 			if(undoSessionStages.size() >= 1)
 				fileWriterUNDO.write("\n, ");
 			else
@@ -48,7 +67,14 @@ public class SaveLoadManager implements SaveLoadManager_IF{
 		// ------------------ Separator ------------------
 		fileWriterREDO.write("[\n");
 		while(redoSessionStages.size() > 0) {
-			fileWriterREDO.write(redoSessionStages.pop().toJSONString());
+			String jsonString=redoSessionStages.pop().toJSONString();
+			fileWriterREDO.write(jsonString);
+			
+			if(!jsonFormat) {
+			fileWriterREDOx.write(jsonString);
+			fileWriterREDOx.write("\n");
+			}
+			
 			if(redoSessionStages.size() >= 1)
 				fileWriterREDO.write("\n, ");
 			else
@@ -58,12 +84,21 @@ public class SaveLoadManager implements SaveLoadManager_IF{
 		// ------------------ Separator ------------------
 		fileWriterUNDO.close();
 		fileWriterREDO.close();
+
+		
+		fileWriterUNDOx.close();
+		fileWriterREDOx.close();
+
+		
 		if(!jsonFormat) {
+			System.out.println("---else save---");
 			xmlSaveLoad xmlsaveload=new xmlSaveLoad();
 			xmlsaveload.xmlSave(fileName, this.location);
-			undo.delete();
-			redo.delete();
+			
 		}
+
+		undox.delete();
+		redox.delete();	
 	}
 
 	@Override
@@ -77,6 +112,7 @@ public class SaveLoadManager implements SaveLoadManager_IF{
 		undoSessionStages.clear();
 		redoSessionStages.clear();
 		// ------------------ Separator ------------------
+		
 		FileReader undoSessionStagesReader = new FileReader(this.location + fileName + "UNDO.json");
 		FileReader redoSessionStagesReader = new FileReader(this.location + fileName + "REDO.json");
 		JSONArray UNDOdata = (JSONArray) parser.parse(undoSessionStagesReader);
@@ -92,5 +128,4 @@ public class SaveLoadManager implements SaveLoadManager_IF{
 		// ------------------ Separator ------------------
 		return sessionStagesManager.getCurrentSessionStage();
 	}
-
 }
