@@ -21,6 +21,7 @@ public class SessionStagesManager implements SessionStagesManager_IF{
 	}
 
 	public void updateStages(Object newStage) {
+		this.redoSessionStages.clear();
 		try {
 			if(this.currentSessionStage == null) {
 				this.currentSessionStage = (JSONObject) this.parser.parse((String) newStage);

@@ -1,7 +1,5 @@
 package RequestReceiverPackage;
 
-import java.io.File;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ShapesPackage.*;
-import junit.framework.Test;
+
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
